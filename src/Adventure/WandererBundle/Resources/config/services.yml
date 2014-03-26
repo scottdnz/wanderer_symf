@@ -1,0 +1,7 @@
+parameters:
+#    adventure_wanderer.example.class: Adventure\WandererBundle\Example
+
+services:
+#    adventure_wanderer.example:
+#        class: %adventure_wanderer.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

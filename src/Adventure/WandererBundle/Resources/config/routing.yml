@@ -1,0 +1,12 @@
+_wanderer_homepage:
+    pattern:  /
+    defaults: { _controller: AdventureWandererBundle:Default:index }
+
+_wanderer_init_entry:
+    pattern:  /init/entry
+    defaults: { _controller: AdventureWandererBundle:Init:entry }
+
+_wanderer_init_entry_add:
+    pattern:  /init/entry/add
+    defaults: { _controller: AdventureWandererBundle:Init:add }
+
