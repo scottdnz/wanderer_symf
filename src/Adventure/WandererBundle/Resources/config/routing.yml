@@ -10,3 +10,7 @@ _wanderer_init_entry_add:
     pattern:  /init/entry/add
     defaults: { _controller: AdventureWandererBundle:Init:add }
 
+_wanderer_activity_main:
+    pattern:  /activity/main
+    defaults: { _controller: AdventureWandererBundle:Activity:main }
+
