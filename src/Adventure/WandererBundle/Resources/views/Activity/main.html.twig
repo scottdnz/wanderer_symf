@@ -1,0 +1,161 @@
+<html>
+  <head>
+     <link href="{{ asset('bundles/adventurewanderer/css/activity_main.css') }}" rel="stylesheet" type="text/css"></script>
+     <script type="text/javascript" src="{{ asset('bundles/adventurewanderer/js/jquery.js') }}"></script>
+     <script type="text/javascript" src="{{ asset('bundles/adventurewanderer/js/activity_main.js') }}"></script>
+  </head>
+  <body>
+    <div id="pMain">
+    
+      <div id="pLeft">
+        <div id="pScene" class="rounded">
+          <img src="" id="sceneImg" />
+        </div>
+        
+        <div class="vGap"></div>
+        
+        <div id="pBottomText" class="rounded">
+          <div id="descCategories" class="hdr">
+            <span class="oneOf3 lFloat padL4"><b>Date:</b> <span id="curDate"></span></span>
+            <span class="oneOf3"><b>Time:</b> <span  id="curTime"></span></span>
+            <span class="oneOf3 rFloat"><b>Area:</b> <span id="curArea"></span></span>
+          </div>
+          <div id="descSpiel" class="padL4">
+           
+          </div>
+          
+          <div id="mainInputArea" class="padL4">
+            <input type="text" id="mainInput" size="150" />
+          </div>
+          
+        </div>
+      </div>
+      
+      <div id="pRight">
+      
+        <div id="pParty" class="rounded">
+          <div class="hdr">
+            <h4>Party</h4>
+          </div>
+          
+          <div class="pChar" id="pChar1">
+            <div class="lChar">
+              <img src="" id="imgChar1" /><br>
+              <div class="nameRow">Lancelot</div>
+            </div>
+            <div class="rChar">
+              <div class="rowMeter">
+                HP: <meter value="15" min="1" max="20"></meter>
+              </div>
+              <div class="rowMeter">
+                XP: <meter value="5" min="1" max="40"></meter>
+              </div>
+              <div class="rowMeter">Level: 1</div>
+              <div class="rowMeter">Inventory</div>
+              <div class="rowMeter">Attributes</div>
+            </div>
+          </div>
+          
+          <div class="pChar" id="pChar2">
+            <div class="lChar">
+              <img src="" id="imgChar2" /><br>
+              <div class="nameRow">Arthur</div>
+            </div>
+             <div class="rChar">
+              <div class="rowMeter">
+                HP: <meter value="15" min="1" max="20"></meter>
+              </div>
+              <div class="rowMeter">
+                XP: <meter value="5" min="1" max="40"></meter>
+              </div>
+              <div class="rowMeter">Level: 1</div>
+              <div class="rowMeter">Inventory</div>
+              <div class="rowMeter">Attributes</div>
+            </div>
+          </div>
+          
+          <div class="pChar" id="pChar3">
+            <div class="lChar">
+              <img src="" id="imgChar3" /><br>
+              <div class="nameRow">Merlin</div>
+            </div>
+             <div class="rChar">
+              <div class="rowMeter">
+                HP: <meter value="15" min="1" max="20"></meter>
+              </div>
+              <div class="rowMeter">
+                XP: <meter value="5" min="1" max="40"></meter>
+              </div>
+              <div class="rowMeter">Level: 1</div>
+              <div class="rowMeter">Inventory</div>
+              <div class="rowMeter">Attributes</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="vGap"></div>
+        
+        <div id="pEnemies" class="rounded">
+          <div class="hdr">
+            <h4>Enemies</h4>
+          </div>
+          <div class="pChar" id="enemy1">
+            <div class="lChar">
+              <img src="" id="imgEnemy1" /><br>
+              <div class="nameRow">Goblin 1</div>
+            </div>
+            <div class="rChar">
+              <div class="rowMeter">
+                HP: <meter value="15" min="1" max="20"></meter>
+              </div>
+              <div class="rowMeter">
+                XP: <meter value="5" min="1" max="40"></meter>
+              </div>
+              <div class="rowMeter">Level: 1</div>
+              <div class="rowMeter">Inventory</div>
+              <div class="rowMeter">Attributes</div>
+            </div>
+          </div>
+          
+          <div class="pChar" id="enemy2">
+            <div class="lChar">
+              <img src="" id="imgEnemy2" /><br>
+              <div class="nameRow">Goblin 2</div>
+            </div>
+             <div class="rChar">
+              <div class="rowMeter">
+                HP: <meter value="15" min="1" max="20"></meter>
+              </div>
+              <div class="rowMeter">
+                XP: <meter value="5" min="1" max="40"></meter>
+              </div>
+              <div class="rowMeter">Level: 1</div>
+              <div class="rowMeter">Inventory</div>
+              <div class="rowMeter">Attributes</div>
+            </div>
+          </div>
+          
+          <div class="pChar" id="enemy3">
+            <div class="lChar">
+              <img src="" id="imgEnemy3" /><br>
+              <div class="nameRow">Hobgoblin 1</div>
+            </div>
+             <div class="rChar">
+              <div class="rowMeter">
+                HP: <meter value="15" min="1" max="20"></meter>
+              </div>
+              <div class="rowMeter">
+                XP: <meter value="5" min="1" max="40"></meter>
+              </div>
+              <div class="rowMeter">Level: 1</div>
+              <div class="rowMeter">Inventory</div>
+              <div class="rowMeter">Attributes</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div id="pAction"></div>-->
+      </div>
+    </div>
+  
+  </body>
+</html>
