@@ -1,0 +1,326 @@
+<form id="frmBeings" data-route="{{ path('_wanderer_init_entry_add') }}">
+      
+        <p>
+          <span class="lbl">Name</span>
+          <span class="field">
+            <input id="beingName" type="text" size="25">
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Race</span>
+          <span class="field">
+            <select id="beingRace">
+              <option value="basilisk">basilisk</option>
+              <option value="bat">bat</option>
+              <option value="beholder">beholder</option>
+              <option value="bugbear">bugbear</option>
+              <option value="carrion crawler">carrion crawler</option>
+              <option value="cave troll">cave troll</option>
+              <option value="centaur">centaur</option>
+              <option value="cyclops">cyclops</option>
+              <option value="dark elf">dark elf</option>
+              <option value="dragon">dragon</option>
+              <option value="dwarf">dwarf</option>
+              <option value="elf">elf</option>
+              <option value="evil pixie">evil pixie</option>
+              <option value="fire elemental">fire elemental</option>
+              <option value="giant">giant</option>
+              <option value="giant crab">giant crab</option>
+              <option value="giant crocodile">giant crocodile</option>
+              <option value="giant scorpion">giant scorpion</option>
+              <option value="giant snake">giant snake</option>
+              <option value="giant spider">giant spider</option>
+              <option value="gnome">gnome</option>
+              <option value="goblin">goblin</option>
+              <option value="golem">golem</option>
+              <option value="gorgon">gorgon</option>
+              <option value="griffon">griffon</option>
+              <option value="harpy">harpy</option>
+              <option value="hobgoblin">hobgoblin</option>
+              <option value="human">human</option>
+              <option value="hydra">hydra</option>
+              <option value="insect swarm">insect swarm</option>
+              <option value="kobold">kobold</option>
+              <option value="living statue">living statue</option>
+              <option value="lizard man">lizard man</option>
+              <option value="medusa">medusa</option>
+              <option value="mummy">mummy</option>
+              <option value="ogre">ogre</option>
+              <option value="rabid bear">rabid bear</option>
+              <option value="sea dragon">sea dragon</option>
+              <option value="skeleton">skeleton</option>
+              <option value="spectre">spectre</option>
+              <option value="sprite">sprite</option>
+              <option value="squid">squid</option>
+              <option value="troglodyte">troglodyte</option>
+              <option value="vampire">vampire</option>
+              <option value="werewolf">werewolf</option>
+              <option value="wight">wight</option>
+              <option value="wild boar">wild boar</option>
+              <option value="wolf">wolf</option>
+              <option value="wraith">wraith</option>
+              <option value="zombie">zombie</option>
+            </select>
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">HP</span>
+          <span class="field">
+            <input id="beingHP" type="text" size="3">
+          </span> (0-1000)
+        </p>
+        
+        <p>
+          <span class="lbl">Level</span>
+          <span class="field">
+            <input id="beingLevel" type="text" size="3">
+          </span> (1-20)
+        </p>
+        
+        <p>
+          <span class="lbl">MP</span>
+          <span class="field">
+            <input id="beingMP" type="text" size="3">
+          </span> (0-500)
+        </p>
+        
+        <p>
+          <span class="lbl">Defence</span>
+          <span class="field">
+            <input id="beingDefence" type="text" size="3">
+          </span> (1-50)
+        </p>
+        
+        <fieldset>
+        <legend>Statistics</legend>
+        <p>
+          <span class="lbl">Strength</span>
+          <span class="field">
+            <input id="beingStr" type="text" size="3"> (1-100)
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Dexterity</span>
+          <span class="field">
+            <input id="beingDex" type="text" size="3"> (1-100)
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Const.</span>
+          <span class="field">
+            <input id="beingCon" type="text" size="3"> (1-100)
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Wisdom</span>
+          <span class="field">
+            <input id="beingWis" type="text" size="3"> (1-100)
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Intgce</span>
+          <span class="field">
+            <input id="beingItg" type="text" size="3"> (1-100)
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Charisma</span>
+          <span class="field">
+            <input id="beingCha" type="text" size="3"> (1-100)
+          </span>
+        </p>
+        </fieldset>
+        
+         <p>
+          <div class="lbl">Resistant</div>
+          <div class="field">
+          
+            <div class="cBoxUnit">
+              <span class="cBox">p(iercing)</span>
+              <input type="checkbox" name="beingResistant" value="p">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">b(ludgeon)</span>
+              <input type="checkbox" name="beingResistant" value="b">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">r(anged)</span>
+              <input type="checkbox" name="beingResistant" value="r">
+            </div>
+    
+            <div class="cBoxUnit">
+              <span class="cBox">m(agic)</span>
+              <input type="checkbox" name="beingResistant" value="m">
+            </div>
+
+
+            <div class="cBoxUnit">
+              <span class="cBox">f(ire)</span>
+              <input type="checkbox" name="beingResistant" value="f">
+            </div>
+
+
+            <div class="cBoxUnit">
+              <span class="cBox">p(oison)</span>
+              <input type="checkbox" name="beingResistant" value="p">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">c(urse)</span>
+              <input type="checkbox" name="beingResistant" value="c">
+            </div>
+
+            
+          </div>
+        </p>
+        <br> 
+        
+        <p>
+          <div class="lbl">Vulnerable</div>
+          <div class="field">
+          
+            <div class="cBoxUnit">
+              <span class="cBox">p(iercing)</span>
+              <input type="checkbox" name="beingVulnerable" value="p">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">b(ludgeon)</span>
+              <input type="checkbox" name="beingVulnerable" value="b">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">r(anged)</span>
+              <input type="checkbox" name="beingVulnerable" value="r">
+            </div>
+    
+            <div class="cBoxUnit">
+              <span class="cBox">m(agic)</span>
+              <input type="checkbox" name="beingVulnerable" value="m">
+            </div>
+
+            <div class="cBoxUnit">
+              <span class="cBox">f(ire)</span>
+              <input type="checkbox" name="beingVulnerable" value="f">
+            </div>
+
+
+            <div class="cBoxUnit">
+              <span class="cBox">p(oison)</span>
+              <input type="checkbox" name="beingVulnerable" value="p">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">c(urse)</span>
+              <input type="checkbox" name="beingVulnerable" value="c">
+            </div>
+
+            
+          </div>
+        </p>
+        <br>     
+        
+       <p>
+          <span class="lbl">Mood</span>
+          <span class="field">
+            Hostile<input type="radio" name="beingMood" value="h">
+            Neutral<input type="radio" name="beingMood" value="n">
+            Friendly<input type="radio" name="beingMood" value="f">
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Y val</span>
+          <span class="field">
+            <input id="locnYVal" type="text" size="3">
+            (0-19)
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">X val</span>
+          <span class="field">
+            <input id="locnXVal" type="text" size="3">
+            (0-19)
+          </span>
+        </p>
+        
+        <fieldset>
+        <legend>Weapons / Items</legend>
+        
+        <p>
+          <span class="lbl">Weapon 1</span>
+          <span class="field">
+            <select id="beingWeaponId1">
+              <option value="1">Test Sword</option>
+             </select>
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Weapon 2</span>
+          <span class="field">
+            <select id="beingWeaponId2">
+              <option value=""></option>
+              <option value="2">Test Sword</option>
+             </select>
+          </span>
+        </p>  
+        
+        <p>
+          <span class="lbl">Weapon 3</span>
+          <span class="field">
+            <select id="beingWeaponId3">
+              <option value=""></option>
+              <option value="3">Test Sword</option>
+             </select>
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Item 1</span>
+          <span class="field">
+            <select id="beingItem1">
+              <option value=""></option>
+              <option value="1">loaf of bread</option>
+             </select>
+          </span>
+        </p>  
+        
+        <p>
+          <span class="lbl">Item 2</span>
+          <span class="field">
+            <select id="beingItem2">
+              <option value=""></option>
+              <option value="2">bottle of wine</option>
+             </select>
+          </span>
+        </p>  
+        
+        <p>
+          <span class="lbl">Gold P.</span>
+          <span class="field">
+            <input id="beingGP" type="text" size="4">
+          </span>
+        </p>
+        
+        </fieldset>                 
+        
+        <p>
+          <span class="lbl">Finish</span>
+          <span class="field">
+            <input id="locnSubmit" type="button" value="Submit" />
+            <input id="locnReset" type="button" value="Reset" />
+          </span>
+        </p>
+      
+      </form>

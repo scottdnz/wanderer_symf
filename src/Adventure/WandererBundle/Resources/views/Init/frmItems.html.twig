@@ -1,0 +1,122 @@
+      <form id="frmItems" data-route="{{ path('_wanderer_init_entry_add') }}">
+      
+        <p>
+          <span class="lbl">Name</span>
+          <span class="field">
+            <input id="itemName" type="text" size="30">
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Description</span>
+          <span class="field">
+            <textarea id="itemDescription" cols="80" rows="8"></textarea>
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Image</span>
+          <span class="field">
+            <input id="itemImage" type="file" />
+          </span>
+        </p>
+        
+       <p>
+          <div class="lbl">Utility</div>
+          <div class="field">
+          
+            <div class="cBoxUnit">
+              <span class="cBox">breakable</span>
+              <input type="checkbox" name="itemUtility" value="b">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">climbable</span>
+              <input type="checkbox" name="itemUtility" value="c">
+            </div>
+              
+            <div class="cBoxUnit">
+              <span class="cBox">lightable</span>
+              <input type="checkbox" name="itemUtility" value="l">
+            </div>
+
+             <div class="cBoxUnit">
+              <span class="cBox">openable</span>
+              <input type="checkbox" name="itemUtility" value="o">
+            </div>
+
+             <div class="cBoxUnit">
+              <span class="cBox">takeable</span>
+              <input type="checkbox" name="itemUtility" value="t">
+            </div>
+  
+          </div>
+        </p>
+        <br> 
+
+        <p>
+          <div class="lbl">State</div>
+          <div class="field">
+          
+            <div class="cBoxUnit">
+              <span class="cBox">Open</span>
+              <input type="checkbox" name="itemState" value="o">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">Closed</span>
+              <input type="checkbox" name="itemState" value="c">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">Broken</span>
+              <input type="checkbox" name="itemState" value="b">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">Unlit</span>
+              <input type="checkbox" name="itemState" value="u">
+            </div>
+            
+            <div class="cBoxUnit">
+              <span class="cBox">Lit</span>
+              <input type="checkbox" name="itemState" value="l">
+            </div>
+           
+          </div>
+        </p>
+        <br>   
+          
+        <p>
+          <span class="lbl">Uses Remaining</span>
+          <span class="field">
+            <input id="itemUsesRemaining" type="text" size="3">
+          </span>
+        </p>  
+        <br>
+    
+        <p>
+          <span class="lbl">Y val</span>
+          <span class="field">
+            <input id="itemYVal" type="text" size="3">
+            (0-19)
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">X val</span>
+          <span class="field">
+            <input id="itemXVal" type="text" size="3">
+            (0-19)
+          </span>
+        </p>
+        
+        <p>
+          <span class="lbl">Finish</span>
+          <span class="field">
+            <input id="itemSubmit" type="button" value="Submit" />
+            <input id="itemReset" type="button" value="Reset" />
+          </span>
+        </p>
+      
+      </form>
