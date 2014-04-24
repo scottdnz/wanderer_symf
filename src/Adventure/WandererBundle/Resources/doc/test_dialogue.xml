@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<dialogues>
+  <pc namename="Bardwell">
+
+    <dialogue>
+      <pattern>say hello to bardwell</pattern>
+      <choices>
+      
+        <choice>
+          <conditions mood="f" following="0" willing_follow="1" />
+          <messages>
+            <message>Nice to meet you.</message>
+            <message>Hello! I love adventuring. Can I join your party?</message>
+            <message>What a wonderful day it is.</message>
+          </messages>
+        </choice>
+        
+        <choice>
+          <conditions mood="n" following="0" />
+          <messages>
+            <message>Hello.</message>
+            <message>Good Day.</message>
+          <messages>
+        </choice>
+        
+        <choice>
+          <conditions mood="h" following="0" />
+          <messages>
+            <message>Go away.</message>
+            <message>I don't have time for this.</message>
+          <messages>
+        </choice>
+        
+        
+        
+                  
+      
+      </choices>  
+    </dialogue>
+    
+    <dialogue>
+      <pattern></pattern>
+      <choices>
+        <choice>
+          <conditions />
+          <messages>
+            <message></message>
+            <message></message>
+            <message></message>
+          </messages>
+        </choice>
+      </choices>  
+    </dialogue>
+        
+
+  </pc>
+ 
+</dialogues>

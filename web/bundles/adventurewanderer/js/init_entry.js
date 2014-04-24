@@ -32,6 +32,9 @@ function fillWithTestData() {
 
 function clearForm(frmSelected) {
   $(frmSelected)[0].reset();
+}
+    
+    
   /*
   $("#locnYVal").val("");
   $("#locnXVal").val("");
@@ -43,7 +46,7 @@ function clearForm(frmSelected) {
    });
    */
   //$("#locnStorey").val("1");
-}
+//}
 
 
 function getLocnAsXML() {
@@ -74,9 +77,18 @@ function getLocnAsXML() {
 
 $(document).ready(function() {
 
+  $("#navMain ul li").each(function() {
+    if ($(this).text() == "Locations") {
+     $(this).addClass("navItemSelected");
+    }
+    else {
+      $(this).removeClass("navItemSelected");
+    }
+  });
+
     
   $("#locnReset").click(function() {
-    clearForm();
+    clearForm("#frmLocations");
   });
   
   

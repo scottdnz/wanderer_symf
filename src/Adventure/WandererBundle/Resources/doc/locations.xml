@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<locations>
+  <location>
+    <id>1</id>
+    <area>Renfyrd Town</area>
+    <description><p>You are on the edge of the town docks, facing a large body of water. You cannot go further this way.</p></description> 
+    <image></image>
+    <north_exit>1</north_exit>
+    <east_exit>1</east_exit>
+    <south_exit>0</south_exit>
+    <west_exit>0</west_exit>
+  </location>
+  <location>
+    <id>2</id>
+    <area>Renfyrd Town</area>
+    <description><p>You are standing outside the Inn of the Drunken Soldier, in the middle of the town.</p>
+<p>Streets go in three directions. You can see various townsfolk going about their business.</p></description> 
+    <image>inn.png</image>
+    <north_exit>0</north_exit>
+    <east_exit>1</east_exit>
+    <south_exit>1</south_exit>
+    <west_exit>1</west_exit>
+  </location>
+  <location>
+    <id>3</id>
+    <area>Renfyrd Town</area>
+    <description><p>You are in the wealthy part of town, surrounded by fine buildings and well kept walls and private gardens.</p></description> 
+    <image></image>
+    <north_exit>0</north_exit>
+    <east_exit>0</east_exit>
+    <south_exit>0</south_exit>
+    <west_exit>1</west_exit>
+  </location>
+  <location>
+    <id>4</id>
+    <area></area>
+    <description></description> 
+    <image></image>
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <west_exit></west_exit>
+  </location>  
+  <location>
+    <id>5</id>
+    <area></area>
+    <description></description> 
+    <image></image>
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <west_exit></west_exit>
+  </location>  
+  <location>
+    <id>6</id>
+    <area></area>
+    <description></description> 
+    <image></image>
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <west_exit></west_exit>
+  <location>  
+  </location>
+    <id>7</id>
+    <area></area>
+    <description></description> 
+    <image></image>
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <image></image>
+    <west_exit></west_exit>
+  <location>  
+  </location>
+    <id>8</id>
+    <area></area>
+    <description></description> 
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <west_exit></west_exit>
+  </location>  
+  <location>
+    <id>9</id>
+    <area></area>
+    <description></description> 
+    <image></image>
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <west_exit></west_exit>
+  </location>  
+  <location>
+    <id>10</id>
+    <area></area>
+    <description></description> 
+    <image></image>
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <west_exit></west_exit>
+  </location>  
+  <location>
+    <id>11</id>
+    <area></area>
+    <description></description> 
+    <image></image>
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <west_exit></west_exit>
+  </location>  
+  <location>
+    <id>12</id>
+    <area>Renfyrd Town</area>
+    <description><p>You are in the town marketplace. It is busy day or night here.</p></description> 
+    <image></image>
+    <north_exit>1</north_exit>
+    <east_exit>0</east_exit>
+    <south_exit>1</south_exit>
+    <west_exit>0</west_exit>
+  </location>  
+  <location>
+    <id>13</id>
+    <area></area>
+    <description></description> 
+    <image></image>
+    <north_exit></north_exit>
+    <east_exit></east_exit>
+    <south_exit></south_exit>
+    <west_exit></west_exit>
+  </location>
+</locations>

@@ -1,0 +1,46 @@
+Goal: text RPG game with some modern bits
+
+0) Start screen (load which campaign from XML data files?)
+
+1) main interactive screen: picture, description, input box
+-at side: party PCs and enemies/beings panes
+-need a text input mode and fight rolls mode
+
+2) inventory screen, tabs/views for:
+-regular items
+-armour items
+-weapon items
+-magic items
+
+3) map screen - only show parts visited so far
+
+*** Big tasks:
+*Write campaign 1 plan/story outline and map (400 locations)
+
+*Finish web page data entry tools
+-store in db
+-append to an xml file
+-read xml file and store in db
+
+*Data entry using quick web page tools:
+-Location maker, PC maker, Item maker
+
+*Code for main screen:
+-text parsing engine for each command in input box
+-hooks for events
+-casting spell interpreter
+-attack rolling mode (damage hp, xp, dropped items, weapon condition)
+-location changing - record location visited for map
+-pc level changing
+-Xml dialogue parsing (have written details and e.g. data file in Docs)
+
+*Code javascript/php for Inventory screen
+-dropping items
+-equipping items
+
+*Code for map screen
+-what locations to display (how record locations visited)
+-needs to be proper HTML5 later + centre on current location
+-colour highlight start and current location
+
+

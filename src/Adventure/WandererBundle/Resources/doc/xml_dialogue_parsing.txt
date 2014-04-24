@@ -1,0 +1,10 @@
+***Xml dialogue parsing
+
+Dialogue is with a PC
+Search within each PC's dialogues for the matching pattern
+Find the choice with the matching condition attributes
+If there is more than one message, display a randomly chosen message
+If there is a question and answer(s):
+-display the question
+-display all the answers as radio button text (with event as value)
+-fire the event hook with the matching text

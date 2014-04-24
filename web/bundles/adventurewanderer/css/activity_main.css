@@ -1,0 +1,103 @@
+/* CSS */
+
+.rounded {
+  border-radius: 4px;
+  border: 1px solid grey;
+}
+
+#pMain {
+  width: 1280px;
+  height: 800px;
+}
+
+#pLeft {
+  float: left;
+  height: 100%;
+  width: 1024px; /* 80% */
+}
+
+#pRight {
+  float: right;
+  height: 100%;
+  width: 248px; /* approx 20%, 6px gap */
+}
+
+#pScene {
+  height: 528px; /* 66% */
+}
+
+.vGap {
+  height: 6px;
+}
+
+#pBottomText {
+  height: 262px; /* 34%, 6px gap */
+  font-size: 14px;
+}
+
+.padL4 {
+  padding-left: 4px;
+}
+
+#pParty, #pEnemies {
+  height: 395px;
+}
+
+.hdr {
+  background-color: blue;
+  color: white;
+}
+
+h4 {
+  margin: 0px 0px 6px 4px;
+  font-size: 16px;
+}
+
+.pChar {
+  height: 126px;
+  font-size: 12px;
+}
+
+.lChar {
+  float: left;
+}
+
+.nameRow {
+  padding-left: 16px;
+}
+
+.rChar {
+  padding-top: 2px;
+  padding-right: 12px;
+  float: right;
+  width: 130px;
+}
+
+.rowMeter {
+  padding-bottom: 4px;
+}
+
+#sceneImg {
+  max-width:100%; 
+  max-height:100%;
+}
+
+.oneOf3 {
+  width: 30%;
+}
+
+#descSpiel {
+  height: 204px;
+}
+
+.lFloat {
+  float: left;
+}
+
+.rFloat {
+  float: right;
+}
+
+/* #pAction {
+  height: 20%;
+}*/

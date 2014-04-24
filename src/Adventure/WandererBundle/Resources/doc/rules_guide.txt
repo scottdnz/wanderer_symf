@@ -1,0 +1,405 @@
+
+*Beings have:
+stats values
+hp (hit points): 0 - 1000
+level: 1-20 
+max HP per level: 1 - 80 (1000 / 20)
+mp (magic points): 0 - 500
+max MP per level: 0 - 40
+ac (armour class): 1 - 20
+mood: f(riendly), n(eutral), h(ostile)
+location_y: int
+location_x: int
++resistant: p(iercing), b(ludgeon), r(anged), m(agic) f(ire), p(oison), c(urse)
++vulnerable: same 
+weapon_id: int
+gp (gold pieces): int
+item1_id: int
+item1_id: int
+
+
+-beings should take teamwork by characters to kill
+-if mood=hostile, attack characters in party
+-do not change locations (cannot follow)
+
+
+*Characters (also NPCs) have:
+stats values
++xp: (1,000 points per level?)
+level: 1 - 20
+class: i.e. f(fighter), s(spellcaster), h(healer), s(sneaker)
+hp: 0 - 500
+max HP per level: 1 - 40 (500 / 20)
+mp: 0 - 500
+max MP per level: 0 - 40
+ac: 1 - 50
+str: 1 - 100
+dex: 1 - 100
+con: 1 - 100
+wis: 1 - 100
+in: 1 - 100
+char: 1 - 100
+mood: f(riendly), n(eutral), h(ostile)
++willing_follow: int (1 = yes)
+location_y: int
+location_x: int
++weapon1_id: int
++weapon2_id: int
++weapon3_id: int
++weapon_selected: int
++armour_head_id: int
++armour_torso_id: int
++armour_arm_id: int
+item1_id: int
+item2_id: int
+item3_id: int
+...
+item10_id: int
+gp (gold pieces): int
+
+
+-if friendly and following, move to same location as main char
+-if not friendly or not following, do not move to same location as main char
+-can only select 1 weapon at a time
+
+str
+dex
+con
+wis
+itg
+char
+
+str 1-100: i.e. skill with using strength for HTH attacks
+  >25 needed for:
+    chain armour
+    metal or large shields
+    two-handed weapons
+    heavy one-handed weapons
+    long bow, crossbow
+    lifting medium weights
+  >50 needed for:
+    plate armour
+    "advanced weapons?"
+    lifting heavy weights
+    
+dex 1-100: i.e. agility, speed, evasion, disables traps, opens doors, 
+  ranged weapons bonus
+  >80 benefits:
+    2 attacks per round
+  >90 benefits: 
+    2 attacks per round, 50% chance of 3rd attack
+  
+con 1-100: i.e. resists damage (physical, energy, magical)
+
+wis 1-100: i.e. for spotting traps, in-game suggestions, additional dialogue options, identifying if friend or foe
+
+int 1-100: i.e. for magic, reading books
+
+char 1-100: i.e. for interactions, buying equipment discounts, NPCs offering help
+
+attack rolls, 1-100
+
+  -if strength higher, more chance to hit with HTH attack
+    e.g. PC 30, enemy 15
+    30 - 15 = +15 to hit
+  -if strength higher, +1 damage for every 5 points higher
+    e.g. PC 30, enemy 15
+    15 strength diff / 5 = +3 damage
+    
+  -if constitution higher, resists damage
+    e.g PC 30, -1 damage for every 3 con
+    --> -10 damage
+  
+  -if dexterity higher, more chance of evading attack (less chance for enemy to hit)
+    e.g. PC 30, enemy 15
+    --> -15 chance to hit
+  -if dexterity higher, more chance of hitting with ranged attack
+    +1 to hit for every 3 dex, e.g.
+    30 dex --> +10 to hit
+    
+  attack results:
+    1-70: normal damage
+    71-80: +10% damage
+    81-90: +20% damage
+    90-91: +50% damage
+  
+  
+Factors in an attack roll:
+  *Chance to hit:  
+    +strength bonus to hit HTH
+    +dex bonus to hit ranged
+    
+    -armour class defence (block)
+    -dex defence bonus (evade)
+
+  *Damage
+    +strength bonus HTH
+    +dex bonus ranged
+    
+    -con defence bonus (resist)
+    
+
+Example attack roll:
+
+  PC:
+    AC 20, leather armour, shield, helmet
+    STR 25
+    CON 20
+    
+  Enemy NPC:
+    
+Text parser - going to be biggest issue
+mostly in PHP
+JS only checks if blank, not a valid command found
+Need to eliminate "inbetween" words, e.g. to, the
+some words needed: in, on, into, through
+
+**Valid commands:
+Each of these will need a hook
+*look / examine
+  -on its own, refresh and display location description
+  -with a noun, act on it (e.g. look map, see item description)
+*read (book / scroll / sign)
+  -display message attached to object/item
+inventory
+open container with item
+close
+take / get
+give
+go / walk
+climb
+attack
+*drop
+-remove item/weapon/armour id from PC
+talk / say / speak
+throw
+jump
+
+Directions:
+"north", "n", 
+"northeast", "ne", 
+"east", "e", 
+"southeast", "se", 
+"south", "s", 
+"southwest", "sw", 
+"west", "w", 
+"northwest", "nw"
+"up", "u"
+"down", d
+
+Need some kind of hook for every time something is typed, e.g. 
+go into a location
+action, e.g. use key to open door
+-> trigger a response
+
+    
+**Notes from ex book:
+*DB stores location in grid, 20 * 20 = 400
+-write a grid creator script / a GUI tool to help do it?
+each location assigned a matrix no. by y,x e.g. 
+
+0,0   0,1   0,2   0,3
+
+1,0   1,1   1,2   1,3
+
+2,0   2,1   2,2   2,3
+
+Only some locations possible to be moved to from each location. Max: 4?
+"n"
+"ne"
+"e"
+"se"
+"s"
+"sw"
+"w"
+"nw"
+"up"
+"down"
+e.g. strings like:
+"n ne e s"
+"n"
+"n ne"
+"n ne e"
+
+Calculations for direction:
+to go north, y - 1
+to go ne, y - 1 and x + 1
+to go e, x + 1
+to go se, y + 1 and x + 1
+to go s, y + 1
+to go sw, y + 1 and x - 1
+to go w, x - 1
+to go nw, y - 1 and x - 1
+
+Each loc'n has a:
+description
+image(s) - image name
+enemies? - in own table
+non-takeable objects, e.g. tree, door
+takeable items? regular / weapons
+NPC(s)?
+
+for each location, hooks:
+  -time increments by 3 minutes
+  -check which items are in the location
+  -check which players are in the location
+  (-check the special feature in the location, and its state (if item has location_effect id that matches location, using it will do something to feature))
+  -check which players are following the main player, and move them to current location
+  -if are enemies with hostile mood in location, attack all players in location
+
+
+NPCs - are in a fixed location or moving
+-have their own health, stats
+-can follow the character around
+-why would one stop following?
+-have things to say
+-script trees attached to them? an event can trigger a dialogue section
+
+Dialogue
+scripted events?
+weather changes? random?
+time? progresses by 5 mins? -need a wait command?
+
+
+Ideas - troll bridge
+sphinx with riddles
+
+**Inventory for a character:
+Regular items
+Weapons items
+Armour items
+Magic items
+
+
+**Items / objects
+All have a location in the grid (when not picked up)
+
+Need Inventory screen
+-switch between characters
+-filter by regular / armour / weapon / magic item
+-can equip, unequip or drop 
+
+
+
+
+*Objects 
+-not takeable
+-often a feature of a room that is actionable, e.g. door, window, chest, boulder
+
+*Regular items
+- food, drink, utility (rope, key, map, candle, lantern, tinderbox)
+takeable, openable, breakable, get used up?
+-some have effect only at a certain place when used
+
+name varchar(30)
+description varchar(255)
+utility varchar(50) (t)akeable, (o)penable, (b)reakable, (c)limbable,
+(l)ightable, 
+state varchar(50), e.g. opened, closed, bent, broken, finished, wet, dry
+location_y smallint
+location_x smallint
+uses_remaining smallint
+
+*Container items (chest, box, drawers)
+location_y smallint
+location_x smallint
+contains_gp small int
+contains_item_id int
+contains_weapon_id int
+contains_magic_item_id int
+state, e.g. opened/closed/broken
+
+
+*Weapons items - normal/status boosted
+name varchar(30)
+description varchar(255)
+dmg_type1 char(1) not null,char(1), p(iercing), b(ludgeon), r(anged), m(agic) f(ire), p(oison), c(urse)
+dmg_type1_min smallint not null,
+dmg_type1_max smallint not null,
+dmg_type2 char(1),
+dmg_type2_min smallint,
+dmg_type2_max smallint,
+dmg_type1 char(1),
+deteriorates tinyint,  1 / 0, 1=0 deteriorates certain amount every attack round
+condition smallint, 0-100 (0 = unusable)
+bonus_dmg_type char(1), e.g. p(iercing), b(ludgeon), r(anged), m(agic) f(ire), p(oison), c(urse)
+bonus_dmg_val smallint, e.g. 3
+bonus_status_type char(1), e.g. s(trength)
+bonus_status_val smallint, e.g. +2
+equipped tinyint (bool)
+required_level smallint, e.g. 5
+required_class char(1), (s)neaker, s(p)ellcaster, (h)ealer, (f)ighter
+location_y smallint
+location_x smallint
+-can pay someone to fix weapon, increases condition
+
+*Armour items - normal/status boosted, worn/carried
+name varchar(30)
+description varchar(255)
+condition smallint, 0-100 (0 = unusable)
+body_section tinyint, e.g. b(ody), a(rm), h(head)
+equipped tinyint (bool)
+bonus_status_type char(1), e.g. s(trength)
+bonus_status_val smallint, e.g. +2
+required_level smallint, e.g. 5
+required_class char(1), (s)neaker, s(p)ellcaster, (h)ealer, (f)ighter
+location_y smallint
+location_x smallint
+
+*Magic items - Potions, scrolls, rings, jewels
+name varchar(30)
+description varchar(255)
+equipped tinyint (bool)
+bonus_status_type char(1), e.g. s(trength)
+bonus_status_val smallint, e.g. +2
+spell_id
+required_level smallint, e.g. 5
+required_class char(1), (s)neaker, s(p)ellcaster, (h)ealer, (f)ighter
+duration_remaining, e.g. permanent, 3 (rounds)
+location_y smallint
+location_x smallint
+state, e.g. broken
+
+*Spells
+name
+effect
+target , e.g. self, n enemies, all
+hp_effect
+status_effect_type, e.g. str
+status_effect_val, e.g. +5
+
+-e.g. heal, make invisible, protect, turn undead
+-need spell hooks
+e.g. if fireball, send at n enemies (always hits), 
+n is determined by user level, for every 3 levels, +1 enemy
+damage to each enemy is 4 x user level
+decrease MP by 3
+ 
+ 
+ 
+*Event (scripted)
+location_y smallint
+location_x smallint
+item_required_id, e.g. 123 / null
+magic_item_required_id, e.g. 123 / null
+weapon_required_id, e.g. 123 / null 
+pc_required_id, e.g. 123
+action_required, e.g. "open door", "unlock chest"
+effect, e.g. open door to east, unlock chest, smash window
+message, e.g. "You unlock the chest with the bronze key."
+completed tinyint (bool)
+xp_generated int
+
+-Need a hook to handle event types
+-if location_y and location_x match and
+-if keywords from input in action_required and 
+-if item_required_id != null and (
+-if character with id has item_required_id in items or 
+-if character with id has item_required_id in magic_items or 
+-if character with id has weapon_required_id in weapons )
+-or pc with pc_required_id has the same location_y & location_x
+
+Probs:
+open chest, how make available things inside?
+-if chest item closed, change state to opened
+-find items in db with these names...

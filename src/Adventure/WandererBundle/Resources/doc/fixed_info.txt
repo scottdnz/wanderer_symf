@@ -1,0 +1,48 @@
+Player class:
+fighter, 
+    -can be hand-to-hand, ranged
+spellcaster,
+    -can cast discovering, offensive or healing spells
+    -can read magic texts
+healer,
+    -can cast healing spells
+    -can be hand-to-hand
+sneaker,
+    -can discover things, open things, very fast & stealthy
+    -can be hand-to-hand, ranged
+
+
+Armour class:
+-max range 0-50
+-can be helmet for head, suit for torso, shield for arm
+leather,
+    -wearable by all
+    -weight: 1-20kg (no dexterity penalty)
+    -AP bonus 1-10
+wood,
+    -shields only
+    -weight: 1-20kg (can't use two-handed/bows with it)
+    -AP bonus 1-10
+chainmail,
+    -wearable by fighter
+    -AP bonus 11-20
+plate,
+    -wearable by fighter
+    -AP bonus 21-35
+enchanted metal
+    -wearable by all except spellcaster
+    -AP bonus 36-50
+
+Armour position_body:
+h(ead), 
+t(orso) and legs, 
+a(rm-shield)
+
+types of damage:
+p(iercing), 
+b(ludgeon), 
+r(anged), 
+m(agic) 
+f(ire),     
+p(oison),  -decreasing HP at x rate/turn for y turns
+c(urse) - status damage

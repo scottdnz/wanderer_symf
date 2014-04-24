@@ -1,0 +1,140 @@
+<html>
+  <head>
+  
+   <link href="{{ asset('bundles/adventurewanderer/css/activity_inventory.css') }}" rel="stylesheet" type="text/css"></script>
+   <script type="text/javascript" src="{{ asset('bundles/adventurewanderer/js/jquery.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('bundles/adventurewanderer/js/activity_inventory.js') }}"></script>
+  </head>
+  <body>
+    <div id="pMain">
+    
+      <div id="pLeftInventory" class="rounded">
+        <div class="hdr">
+          <h4>Inventory</h4>
+        </div>
+      
+        <nav id="navInventory">
+          <ul>
+            <li id="regularItems">Regular Items</li>
+            <li id="armourItems">Armour</li>
+            <li id="weaponItems">Weapons</li>
+          </ul>
+        </nav>
+        
+        <div id="itemsArea" class="invArea hidden">
+          <table class="inventoryTbl">
+            <tr>
+              <th>Item</th>
+              <th>Description</th>
+              <th>Use</th>
+              <th>Drop</th>
+              <th>Give</th>
+            </tr>
+            <tr>
+              <td><img src="{{ asset('bundles/adventurewanderer/images/items/potion.png') }}" /></td>
+              <td>Minor Healing Potion</td>
+              <td>Heal 10 pts</td>
+              <td><button class="btnUse btnEquip">Use</button></td>
+              <td><button class="btnGive">Give</button></td>
+              <td><button class="btnDrop">Drop</button></td>
+            </tr>
+          </table>
+        </div>
+        
+        <div id="armourArea" class="invArea hidden">
+          <table class="inventoryTbl">
+            <tr>
+              <th>Item</th>
+              <th>Description</th>
+              <th>Use</th>
+              <th>Drop</th>
+              <th>Give</th>
+            </tr>
+            <tr>
+              <td><img src="{{ asset('bundles/adventurewanderer/images/items/armour.png') }}" /></td>
+              <td>Light Shield</td>
+              <td>AP + 5</td>
+              <td><button class="btnEquipArmour btnEquip">Equip</button></td>
+              <td><button class="btnGive">Give</button></td>
+              <td><button class="btnDrop">Drop</button></td>
+            </tr>
+          </table>
+        </div>
+        
+        <div id="weaponArea" class="invArea hidden">
+          <table class="inventoryTbl">
+            <tr>
+              <th>Item</th>
+              <th>Description</th>
+              <th>Use</th>
+              <th>Drop</th>
+              <th>Give</th>
+            </tr>
+            <tr>
+              <td><img src="{{ asset('bundles/adventurewanderer/images/items/weapon.png') }}" /></td>
+              <td>Short Sword</td>
+              <td>5 Damage</td>
+              <td><button class="btnEquipWeapon btnEquip">Equip</button></td>
+              <td><button class="btnGive">Give</button></td>
+              <td><button class="btnDrop">Drop</button></td>
+            </tr>
+          </table>
+        </div>
+      
+      </div> <!-- End of pInventory -->
+      
+      <div id="pRightStatsDiagram">
+      
+        <div id="pStats" class="rounded">
+          <div class="hdr">
+            <h4>Statistics</h4>
+          </div>
+          <table class="inventoryTbl" id="statsTbl">
+            <tr>
+              <td>STR:</td>
+              <td>16</td>
+              <td>/ 100</td>
+            </tr>
+            <tr>
+              <td>CON:</td>
+              <td>12</td>
+              <td>/ 100</td>
+            </tr>
+            <tr>
+              <td>DEX:</td>
+              <td>9</td>
+              <td>/ 100</td>
+            </tr>
+              <td>INT:</td>
+              <td>12</td>
+              <td>/ 100</td>
+            </tr>
+            <tr>
+              <td>WIS:</td>
+              <td>16</td>
+              <td>/ 100</td>
+            </tr>
+            <tr>
+              <td>CHA:</td>
+              <td>12</td>
+              <td>/ 100</td>
+            </tr>
+            
+          </table>
+          
+        </div> <!-- End of pStats -->
+        
+        <div class="vGap"></div>
+        
+        <div id="pDiagram" class="rounded">
+          <div class="hdr">
+            <h4>Equipment Diagram</h4>
+          </div>
+        </div> <!-- End of pDiagram -->
+          
+      </div> <!-- End of pStatsDiagram -->
+      
+    </div>
+  
+  </body>
+</html>

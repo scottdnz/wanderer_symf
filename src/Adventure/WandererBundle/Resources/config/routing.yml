@@ -14,3 +14,7 @@ _wanderer_activity_main:
     pattern:  /activity/main
     defaults: { _controller: AdventureWandererBundle:Activity:main }
 
+_wanderer_activity_inventory:
+    pattern:  /activity/inventory
+    defaults: { _controller: AdventureWandererBundle:Activity:inventory }
+

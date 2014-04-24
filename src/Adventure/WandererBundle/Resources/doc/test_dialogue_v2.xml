@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<dialogues>
+  <pc namename="Bardwell">
+
+    <dialogue>
+      <pattern>say hello to bardwell</pattern>
+      <choices>
+      
+        <choice mood="f" following="0" willing_follow="1" />
+          <messages>
+            <message>Nice to meet you.</message>
+            <message>Hello! I love adventuring. Can I join your party?</message>
+            <message>What a wonderful day it is.</message>
+          </messages>
+        </choice>
+        
+        <choice mood="f" following="1" />
+          <messages>
+            <message>I love the adventuring life!</message>
+            <message>Hello! It's great to be in your party?</message>
+            <message>Love is a many-splendoured thing.</message>
+          </messages>
+        </choice>
+               
+        <choice mood="n" following="0" />
+          <messages>
+            <message>Hello.</message>
+            <message>Good Day.</message>
+          <messages>
+        </choice>
+        
+        <choice mood="n" following="1" />
+          <messages>
+            <message>Hello, I don't appreciate the way you've been treating me.</message>
+          <messages>
+        </choice>
+
+        <choice mood="h" following="0" />
+          <messages>
+            <message>Go away.</message>
+            <message>I don't have time for this.</message>
+          <messages>
+        </choice>
+        
+      </choices>  
+    </dialogue>
+    
+    
+    
+    <dialogue>
+      <pattern>Where is the treasure?</pattern>
+      <choices>
+      
+        <choice mood="f" following="1" />
+          <question>All I know is that it is somewhere to the East, by a forest and a cave. I really need some help getting there. Will you help me?</message>
+          </question>
+          <answers>
+            <answer event="help Bardwell">Yes</answer>
+            <answer event="anger Bardwell">No</answer>
+            <answer event="put off Bardwell">Maybe</answer>
+          <answers>
+          
+        </choice>
+        
+      </choices>  
+    </dialogue>
+    
+    
+        
+    <dialogue>
+      <pattern></pattern>
+      <choices>
+      
+        <choice>
+          <messages>
+            <message></message>
+            <message></message>
+            <message></message>
+          </messages>
+        </choice>
+        
+      </choices>  
+    </dialogue>
+
+  </pc>
+ 
+</dialogues>

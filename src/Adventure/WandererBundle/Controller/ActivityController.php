@@ -14,5 +14,9 @@ class ActivityController extends Controller {
   public function mainAction() {
     return $this->render('AdventureWandererBundle:Activity:main.html.twig');
   }
+
+  public function inventoryAction() {
+    return $this->render('AdventureWandererBundle:Activity:inventory.html.twig');
+  }
   
 }
