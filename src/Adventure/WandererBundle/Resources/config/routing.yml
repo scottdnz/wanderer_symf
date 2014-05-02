@@ -6,8 +6,8 @@ _wanderer_init_entry:
     pattern:  /init/entry
     defaults: { _controller: AdventureWandererBundle:Init:entry }
 
-_wanderer_init_entry_add:
-    pattern:  /init/entry/add
+_wanderer_init_add:
+    pattern:  /init/add
     defaults: { _controller: AdventureWandererBundle:Init:add }
 
 _wanderer_activity_main:

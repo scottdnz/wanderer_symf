@@ -11,29 +11,32 @@ require_once __DIR__ . "/../Lib/Init/location_maker.php";
 
 class InitController extends Controller {
 
+
   public function entryAction() {
     return $this->render('AdventureWandererBundle:Init:entry.html.twig');
   }
   
+  
+  // Init entry add
   public function addAction(Request $request) {
     $yesXML = "NOTXML";  
     if ($request->isXmlHttpRequest()) {
       $yesXML = "isXML";
     }
     //var_dump($request)
-    $content = $request->getContent();
-        
-    /*
+    $content = $request->getContent();   
+    
     $xml = simplexml_load_string($content);
     $obj = $xml->location;
-    $y_val = $obj->y_val;
-    //file_put_contents($fname, $y_val);
-    */
     
-    $y_val = test_check($content);
-    //", y_val: " . $y_val 
-    
-    return new Response('OK, yesXml: ' . $yesXML . ", __DIR__: " . __DIR__ .  ", y_val: " . $y_val, Response::HTTP_OK, array('Content-Type'=> 'text/plain'));
+    $error = "error here";
+    $conf = "conf here";
+    $xml_resp = get_resp_strg($error, $conf);
+
+    return new Response($xml_resp, 
+      Response::HTTP_OK,
+      array('Content-Type'=> 'text/xml')
+    );
   }
     
 }

@@ -76,6 +76,12 @@ function getLocnAsXML() {
 
 
 $(document).ready(function() {
+  
+  //Initialising
+  $("form").hide();
+  fillWithTestData();
+  $("#frmLocations").show();
+
 
   $("#navMain ul li").each(function() {
     if ($(this).text() == "Locations") {
@@ -114,14 +120,15 @@ $(document).ready(function() {
     fData = getLocnAsXML();
     //"": $("#").val(),
     //testSubmit(fData);
-    var url = $("#frmLocation").data("route");      
+    var url = $("#frmLocations").data("route");      
     //url, data, success, datatype
     $.post(url, 
       fData, 
       function(data) {
-        //console.log(data);
-        $respMsg = "<p>";
-        $xml = $(data);
+        console.log(data);
+        //$respMsg = "<p>";
+        //$xml = $(data);
+        /*
         $conf = $xml.find("conf").text();
         if ($conf.length > 0) {
           $respMsg += "Confirmation(s): " + $conf;
@@ -133,6 +140,7 @@ $(document).ready(function() {
           $("#respMsgArea").css("color", "red");
         }
         $("#respMsgArea").html($respMsg + "</p>");
+        */
         
       }, // End of post success function
       "xml"
