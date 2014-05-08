@@ -7,7 +7,7 @@ function get_test_db_conn() {
   global $db_params;
   $conn = mysqli_init();
   $conn->options(MYSQLI_OPT_CONNECT_TIMEOUT, 30);
-  $conn->real_connect($db_params["server"], $db_params["username"], $db_params["passwd"], $db_params["db"]);
+  $conn->real_connect($db_params["hostname"], $db_params["username"], $db_params["password"], $db_params["database"]);
   return $conn;
 }
 

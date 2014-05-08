@@ -1,6 +1,10 @@
 <?php
 
-$db_params = array("server"=> "localhost",
-"db"=> "wanderer",
+$db_params = array("hostname"=> "localhost",
 "username"=> "wanderer_admin",
-"passwd"=> "eup0toh#H8kohrei");
+"password"=> "eup0toh#H8kohrei",
+"database"=> "wanderer",
+"options"=> array("port"=> "")
+);
+  
+

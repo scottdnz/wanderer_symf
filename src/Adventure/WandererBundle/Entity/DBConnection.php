@@ -55,6 +55,7 @@ class DBConnection {
 	  return $this->_error;
 	}
   
+  
   public function connect() {
 		if ($this->_connection) {
 			return true;
@@ -87,23 +88,34 @@ class DBConnection {
         $this->set_error("Connect", "Setting MYSQLI_OPT_CONNECT_TIMEOUT failed");
       }
       else {
-        // Connect to the DB server using credentials
-		    switch(count($args))
-		    {
-			    case 1:
-				    $this->_connection->real_connect($args[0]);
-				    break;
-			    case 2:
-				    $this->_connection->real_connect($args[0], $args[1]);
-				    break;
-			    case 3:
-  			    $this->_connection->real_connect($args[0], $args[1], $args[2]);
-				    break;
-		    }
-		    if (! $this->_connection) {
-		      $this->set_error("Connect", "Problem connecting to MySQL server: " . 
-		        mysqli_connect_error());
+        try {
+          // Connect to the DB server using credentials
+		      switch(count($args))
+		      {
+			      case 1:
+				      $this->_connection->real_connect($args[0]);
+				      break;
+			      case 2:
+				      $this->_connection->real_connect($args[0], $args[1]);
+				      break;
+			      case 3:
+    			    $this->_connection->real_connect($args[0], $args[1], $args[2]);
+				      break;
+		      }
+		      if (! $this->_connection) {
+		        $this->set_error("Connect", "Problem connecting to MySQL server: " . 
+		          mysqli_connect_error());
+          }
         }
+        catch(Exception $exc) {
+          $code = $exc->getCode();
+          if (! empty($code)) {
+            $this->set_error("Connect", "Problem connecting to MySQL server: " . 
+		          mysqli_connect_error());
+          }
+        }
+        
+        
       }
     }
     //$res = (if (strlen($this->_error) > 0) ? true : false);
