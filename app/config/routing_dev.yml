@@ -12,8 +12,3 @@ _configurator:
 
 _main:
     resource: routing.yml
-
-    
-adventure_wanderer:
-    resource: "@AdventureWandererBundle/Resources/config/routing.yml"
-    prefix:   /
