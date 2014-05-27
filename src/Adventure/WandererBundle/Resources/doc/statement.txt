@@ -15,7 +15,7 @@ Goal: text RPG game with some modern bits
 3) map screen - only show parts visited so far
 
 *** Big tasks:
-*Write campaign 1 plan/story outline and map (400 locations)
+*Write campaign 1 plan/story outline and map (100 locations)
 
 *Finish web page data entry tools
 -store in db
