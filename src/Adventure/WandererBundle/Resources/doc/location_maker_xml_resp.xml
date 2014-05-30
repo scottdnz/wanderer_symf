@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<location_response>
+  <conf>The location was successfully added/edited. </conf>
+  <error>Problem saving location to database. </error>
+</location_response>

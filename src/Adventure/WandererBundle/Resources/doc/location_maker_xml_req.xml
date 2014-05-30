@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response status="ok">
+  <op>SaveNew</op>
+  <location>
+    <y_val>0</y_val>
+    <x_val>0</x_val>
+    <short_lbl>Short</short_lbl>
+    <area>area</area>
+    <description>desc</description>
+    <exits>n,ne,e</exits>
+    <storey_val>1</storey_val>
+    <image>inn.png</image>
+  </location>
+</response>
