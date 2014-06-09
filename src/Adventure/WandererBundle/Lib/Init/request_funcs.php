@@ -68,6 +68,66 @@ $loc["visited"]);
 }
 
 
+function parse_xml_item_get_2d_array($obj) {
+  $utilities = $obj->utilities;
+  $states = $obj->states;
+  
+  $item = array("name"=> $obj->name,
+  "description"=> $obj->description,
+  "image"=> $obj->image,
+  "location_y"=> intval($obj->location_y),
+  "location_x"=> intval($obj->location_x),
+  "uses_remaining"=> intval($obj->uses_remaining),
+  "util_breakable"=> intval($utilities->breakable),
+  "util_climbable"=> intval($utilities->climbable),
+  "util_lightable"=> intval($utilities->lightable),
+  "util_openable"=> intval($utilities->openable),
+  "util_takeable"=> intval($utilities->takeable),
+  "state_open"=> intval($states->open),
+  "state_useable"=> intval($states->useable),
+  "state_lit"=> intval($states->lit)
+  );
+  return $item;
+}
+
+
+function insert_item($db_conn, $item) {
+  $sql = sprintf("insert into item (
+name,
+description,
+image,
+location_y,
+location_x,
+uses_remaining,
+util_breakable,
+util_climbable,
+util_lightable,
+util_openable,
+util_takeable,
+state_open,
+state_useable,
+state_lit) values (
+'%s', '%s', '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",  
+$item["name"],
+$item["description"],
+$item["image"],
+$item["location_y"],
+$item["location_x"],
+$item["uses_remaining"],
+$item["util_breakable"],
+$item["util_climbable"],
+$item["util_lightable"],
+$item["util_openable"],
+$item["util_takeable"],
+$item["state_open"],
+$item["state_useable"],
+$item["state_lit"]);
+  $res = $db_conn->query($sql);  
+  return $db_conn->get_error();
+}
+
+
+
 /**
  * Creates an XML document object from the parameters passed in. Returns it
  * converted to a string.
@@ -76,7 +136,7 @@ $loc["visited"]);
  * @return string
  */
 function get_resp_strg($error, $conf) {
-  $respObj = new SimpleXMLElement("<location_response />");
+  $respObj = new SimpleXMLElement("<response />");
   $error_elem = $respObj->addChild("error");
   $error_elem->{0} = $error;
   $conf_elem = $respObj->addChild("conf");
@@ -85,3 +145,6 @@ function get_resp_strg($error, $conf) {
   //$respObj->asXML('xml_resp.xml');
   return $respObj->asXML();
 }
+
+
+

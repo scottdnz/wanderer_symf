@@ -3,6 +3,7 @@
  * author: Scott Davies 2014
  */
  
+ 
 /*
 function testSubmit(fData) {
   var testMsg = "<code>";
@@ -33,33 +34,33 @@ function fillWithTestData() {
 
 function clearForm(frmSelected) {
   $(frmSelected)[0].reset();
+  $("#respMsgArea").empty();
 }
 
 
-function getExitsBoxes() {
-  var exits = new Array("n", "ne", "e", "se", "s", "sw", "w", "nw", "up", "down");
-  var exits_arr = new Array();
-  
-  for (var i = 0; i < exits.length; i++) {
-    checked = $("input[name='locnExits'][value='" + exits[i] + "']").prop("checked");
+function getCheckBoxes(options, cbGroupName) {
+  var elems_arr = new Array();
+  for (var i = 0; i < options.length; i++) {
+    var checked = $("input[name='" + cbGroupName + "'][value='" + options[i] + "']").prop("checked");
     if (checked) {
-      check_val = 1;
+      var check_val = 1;
     }
     else {
-      check_val = 0;
+      var check_val = 0;
     }   
-    exits_arr.push("<" + exits[i] + ">" + check_val + "</" + exits[i] + ">");
+    elems_arr.push("<" + options[i] + ">" + check_val + "</" + options[i] + ">");
   }
-  return exits_arr.join("");
+  return elems_arr.join("");
 }
 
 
 function getLocnAsXML() {
-  exits = getExitsBoxes();
+  var exit_options = new Array("n", "ne", "e", "se", "s", "sw", "w", "nw", "up", "down");
+  var exits = getCheckBoxes(exit_options, "locnExits");
   var description =  $("#locnDescription").val().replace(/\r?\n/g, '<br />');
   var fData = new Array();
   fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-  fData.push("<requestLocation>");
+  fData.push("<request>");
   fData.push("<op>SaveNewLocation</op>");
   fData.push("<location>");
   fData.push("<y_val>" +  $("#locnYVal").val() + "</y_val>");
@@ -68,13 +69,63 @@ function getLocnAsXML() {
   fData.push("<area>" + $("#locnArea").val() + "</area>");
   fData.push("<description>" + description + "</description>");
   fData.push("<exits>" + exits + "</exits>");           
-
   fData.push("<image>" + $("#locnImage").val() + "</image>");
   fData.push("<storey_val>" + $("#locnStorey").val() + "</storey_val>");
   fData.push("<visited>0</visited>");
   fData.push("</location>");
-  fData.push("</requestLocation>");
+  fData.push("</request>");
   return fData.join("");
+}
+
+
+function getItemAsXML() {
+  var util_options = new Array("breakable", "climbable", "lightable", "openable", 
+  "takeable");
+  var state_options = new Array("open", "useable", "lit");
+  var utilities = getCheckBoxes(util_options, "itemUtility");
+  var states = getCheckBoxes(state_options, "itemState");
+  var description =  $("#itemDescription").val().replace(/\r?\n/g, '<br />');
+  var fData = new Array();
+  fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+  fData.push("<request>");
+  fData.push("<op>SaveNewItem</op>");
+  fData.push("<item>");
+  fData.push("<name>" + $("#itemName").val() + "</name>");
+  fData.push("<description>" + description + "</description>");
+  fData.push("<image>" + $("#item").val() + "</image>");
+  fData.push("<utilities>" + utilities + "</utilities>");
+  fData.push("<states>" + states + "</states>");
+  fData.push("<location_y>" + $("#item").val() + "</location_y>");
+  fData.push("<location_x>" + $("#item").val() + "</location_x>");
+  fData.push("<uses_remaining>" + $("#item").val() + "</uses_remaining> ");
+  fData.push("</item>");
+  fData.push("</request>");
+  return fData.join("");
+}
+
+
+function postAdd(url, fData) {
+  //url, data, success, datatype
+  $.post(url, 
+    fData, 
+    function(data) {
+      //console.log(data);
+      $respMsg = "<p>";
+      $xml = $(data);
+      $conf = $xml.find("conf").text();
+      if ($conf.length > 0) {
+        $respMsg += "Confirmation(s): " + $conf;
+        $("#respMsgArea").css("color", "green");  
+      }
+      else {
+        $error = $xml.find("error").text();
+        $respMsg += "Error(s): " + $error;
+        $("#respMsgArea").css("color", "red");
+      }
+      $("#respMsgArea").html($respMsg + "</p>");
+    }, // End of post success function
+    "xml"
+  ); // End of post call
 }
 
 
@@ -101,6 +152,11 @@ $(document).ready(function() {
   });
   
   
+  $("#itemReset").click(function() {
+    clearForm("#frmItems");
+  });
+  
+  
   $(".cBox").hover(function() {
     $(this).css("cursor", "pointer")
   }, function() {
@@ -120,32 +176,20 @@ $(document).ready(function() {
     
   
   $("#locnSubmit").click(function() {
-    fData = getLocnAsXML();
+    var fData = getLocnAsXML();
     var url = $("#frmLocations").data("route");      
-    //url, data, success, datatype
-    $.post(url, 
-      fData, 
-      function(data) {
-        console.log(data);
-        $respMsg = "<p>";
-        $xml = $(data);
-        $conf = $xml.find("conf").text();
-        if ($conf.length > 0) {
-          $respMsg += "Confirmation(s): " + $conf;
-          $("#respMsgArea").css("color", "green");  
-        }
-        else {
-          $error = $xml.find("error").text();
-          $respMsg += "Error(s): " + $error;
-          $("#respMsgArea").css("color", "red");
-        }
-        $("#respMsgArea").html($respMsg + "</p>");
-      }, // End of post success function
-      "xml"
-    ); // End of post call
+    postAdd(url, fData);
   });
   
   
+  $("#itemSubmit").click(function() {
+    var fData = getItemAsXML();
+    var url = $("#frmItems").data("route");      
+    postAdd(url, fData);
+  });
+  
+  
+  /* Someone has clicked a menu item */
   $("#navMain ul li").click(function() {
     var frmSelected = "#frm" + $(this).text();
     $("#navMain ul li").each(function() {
