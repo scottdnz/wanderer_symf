@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<request status="ok">
+  <op>SaveNew</op>
+  <location>
+    <short_lbl>Docks</short_lbl>
+    <area>Renfyrd Town</area>
+    <y_val>0</y_val>
+    <x_val>0</x_val>
+    <description><p>You are on the edge of the town docks, facing a large body of water. You can see several ships moored and sailors peforming various tasks on the long wharf.</p></description>
+    <image>docks01.jpg</image>
+    <exit_n>0</exit_n>
+    <exit_ne>0</exit_ne>
+    <exit_e>0</exit_e>
+    <exit_se>0</exit_se>
+    <exit_s>1</exit_s>
+    <exit_sw>0</exit_sw>
+    <exit_w>0</exit_w>
+    <exit_nw>0</exit_nw>
+    <storey_val>1</storey_val>
+    <visited>0</visited>
+  </location>
+</request>
+
+
+

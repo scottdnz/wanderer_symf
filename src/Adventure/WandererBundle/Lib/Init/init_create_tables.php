@@ -77,6 +77,8 @@ exit_s tinyint not null,
 exit_sw tinyint not null, 
 exit_w tinyint not null, 
 exit_nw tinyint not null, 
+exit_up  tinyint not null,
+exit_down tinyint not null, 
 storey_val int not null,
 visited tinyint not null,
 primary key (id)
@@ -314,11 +316,6 @@ else {
 }
 
 $res = $db_conn->close();
-
-
-
-
-
 
 
 ?>
