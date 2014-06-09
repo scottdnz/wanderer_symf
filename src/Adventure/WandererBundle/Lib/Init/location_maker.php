@@ -1,39 +1,69 @@
 <?php
 
 
-//require("../../lib/db_funcs.php");
-
-function test_check($content) {
-  $xml = simplexml_load_string($content);
-  $obj = $xml->location;
-  $y_val = $obj->y_val;
-  //file_put_contents($fname, $y_val);
-  return $y_val;
+/**
+ * Need to add element & type checking
+*/
+function parse_xml_location_get_2d_array($obj) {
+  //$xml = simplexml_load_string($xml_strg);
+  //$obj = $xml->location;
+  $exits = $obj->exits;
+  $loc = array("short_lbl"=> $obj->short_lbl,
+    "area"=> $obj->area,
+    "x_val"=> intval($obj->x_val),
+    "y_val"=> intval($obj->y_val),
+    "description"=> $obj->description,
+    "exit_n"=> intval($exits->n),
+    "exit_ne"=> intval($exits->ne),
+    "exit_e"=> intval($exits->e),
+    "exit_se"=> intval($exits->se),
+    "exit_s"=> intval($exits->s),
+    "exit_sw"=> intval($exits->sw),
+    "exit_w"=> intval($exits->w),
+    "exit_nw"=> intval($exits->nw),
+    "exit_up"=> intval($exits->up),
+    "exit_down"=> intval($exits->down),
+    "storey_val"=> intval($obj->storey_val),
+    "visited"=> intval($obj->visited)
+  );
+  return $loc;
 }
+
 
 /**
  * Creates a SQL string with placeholders and runs a query. Returns result info.
- * @param mysqli-connection-object $conn
+ * @param mysqli-connection-object $db_conn
  * @param simplexml-object $obj
- * @return array $result_dic
+ * @return 
  */
-function insert_location($conn, $obj) {
+function insert_location($db_conn, $loc) {
   $sql = sprintf("insert into location (
-y_val, x_val, short_lbl, area, description, exits, storey_val, image, visited)
-values (
-%d, %d, '%s', '%s', '%s', '%s', %d, '%s', %d);",
-  $obj->y_val,
-  $obj->x_val,
-  $obj->short_lbl,
-  $obj->area,
-  $obj->description,
-  $obj->exits,
-  $obj->storey_val,
-  $obj->image,
-  $obj->visited
-  );    
-  //$result_dic = run_modify_query($conn, $sql);
-	//return $result_dic;
+short_lbl,
+area,
+x_val,
+y_val,
+description,
+image,
+exit_n,
+exit_ne,
+exit_e,
+exit_se,
+exit_s,
+exit_sw,
+exit_w,
+exit_nw,
+exit_up,
+exit_down,
+storey_val,
+visited) values (
+'%s', '%s', %d, %d, '%s', '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d
+)", $loc["short_lbl"], $loc["area"], $loc["x_val"], $loc["y_val"], 
+$loc["description"], $loc["image"], $loc["exit_n"], $loc["exit_ne"], 
+$loc["exit_e"], $loc["exit_se"], $loc["exit_s"], $loc["exit_sw"], $loc["exit_w"], 
+$loc["exit_nw"], $loc["exit_up"], $loc["exit_down"], $loc["storey_val"], 
+$loc["visited"]);    
+  $res = $db_conn->query($sql);  
+  return $db_conn->get_error();
 }
 
 
@@ -55,39 +85,5 @@ function get_resp_strg($error, $conf) {
   return $respObj->asXML();
 }
 
-
-/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $error = "";
-  $conf = "";
-
-  $result_dic = get_connection();
-  if (strlen($result_dic["error"]) > 0) {
-	  // Possible connection error found.
-	  $error .= $result_dic["error"];
-  }
-  if (strlen($error) == 0) {
-    $conn = $result_dic["connection"];
-    //DB connection is OK. Process the XML request.
-    $req = file_get_contents('php://input');
-    //Testing. Save XML request string to file.
-    //file_put_contents("xml_req.xml", $req);
-    $xml = simplexml_load_string($req);
-    
-    if ($xml->op == "SaveNew") {
-      $result_dic = insert_location($conn, $xml->location);
-      if (strlen($result_dic["error"]) > 0) {
-	     $error .= "Problem saving location to database: " . $result_dic["error"];
-      }
-    } 
-  }
-  if (strlen($error) == 0) {
-    $conf .= "The location was successfully added/edited. ";
-  }
-  $resp_strg = get_resp_strg($error, $conf); 
-  
-  header("Content-type: text/xml");
-  echo $resp_strg;
-
-}*/
 
 ?>

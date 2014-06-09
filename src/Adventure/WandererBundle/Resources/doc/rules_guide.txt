@@ -176,16 +176,21 @@ throw
 jump
 
 Directions:
-"north", "n", 
-"northeast", "ne", 
-"east", "e", 
-"southeast", "se", 
-"south", "s", 
-"southwest", "sw", 
-"west", "w", 
-"northwest", "nw"
-"up", "u"
-"down", d
+0 = no exit
+1 = exit
+2 = locked/barred/obstacle
+exit_n
+exit_ne 
+exit_e 
+exit_se 
+exit_s
+exit_sw
+exit_w 
+exit_nw 
+exit_up 
+exit_down 
+storey_val  //0 = underground, 1 = ground level, 2 = second storey
+
 
 Need some kind of hook for every time something is typed, e.g. 
 go into a location

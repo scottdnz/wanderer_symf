@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<request status="ok">
+  <op>SaveNew</op>
+  <location>
+    <short_lbl></short_lbl>
+    <area></area>
+    <y_val></y_val>
+    <x_val></x_val>
+    <description></description>
+    <image></image>
+    <exits>
+      <n></n>
+      <ne></ne>
+      <e></e>
+      <se></se>
+      <s></s>
+      <sw></sw>
+      <w></w>
+      <nw></nw>
+      <up></up>
+      <down></down>
+    </exits>
+    <storey_val></storey_val>
+    <visited></visited>
+  </location>
+</request>
+
+
+

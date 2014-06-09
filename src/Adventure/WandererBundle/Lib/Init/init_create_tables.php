@@ -8,90 +8,59 @@
  */
 
 
-require_once(__DIR__ . "/../Entity/DBConnection.php");
-require_once("mk_test_db.php");
-
-
-//Get Database connection vals from the Symfony config
-$config_vals = yaml_parse_file("../../../../../app/config/parameters.yml");
-$params = $config_vals["parameters"];
-$db_params = array("hostname"=> $params["database_host"],
-"username"=> $params["database_user"],
-"password"=> $params["database_password"],
-"database"=> $params["database_name"],
-"options"=> array("port"=> "")
-);
-
+require_once(__DIR__ . "/../../Entity/DBConnection.php");
 
 
 /**
  * Drops all tables in the database, if required.
  * @param "database connection object" $conn
  */
-/*function drop_all_tables($conn) {
+function drop_all_tables($db_conn) {
 	$sql = "show tables;";
-	$result_dic = run_select_query($conn, $sql);
-	foreach($result_dic["records"] as $row) {
+	$res = $db_conn->query($sql);
+	foreach($res as $row) {
 		$tbl = $row["Tables_in_wanderer"];
 		$sql = sprintf("drop table if exists %s;", $tbl);
-		$result_dic = run_modify_query($conn, $sql);
-		if (strlen($result_dic["error"]) < 1) {
+		$res = $db_conn->query($sql);
+		if (strlen($db_conn->get_error()) < 1) {
 			echo "Table '" . $tbl . "' dropped.\n";
 		}
 		else {
 			echo sprintf("Problem, table '%s' NOT dropped.\nError: %s", $tbl, 
-			            $result_dic["error"]);
+			            $db_conn->get_error());
 		}
 	}
 	return;
-}*/
+}
 
 
 /**
  * Creates all the tables via functions.
  * @param "database connection object" $conn
  */
- /*
-function create_all_tables($conn) {
-	$result_dic = array("error"=> "", 
-	                    "records"=> "");
-	$result_dic = create_location($conn);
-	if (strlen($result_dic["error"]) > 0) {
-  	echo "There was an error message: \n" . $result_dic["error"];
-	}
-	$result_dic = create_pc($conn);
-	if (strlen($result_dic["error"]) > 0) {
-		echo "There was an error message: \n" . $result_dic["error"];
-	}
-	$result_dic = create_being($conn);
-	if (strlen($result_dic["error"]) > 0) {
-		echo "There was an error message: \n" . $result_dic["error"];
-	}
-	$result_dic = create_weapon($conn);
-	if (strlen($result_dic["error"]) > 0) {
-		echo "There was an error message: \n" . $result_dic["error"];
-	}
-	$result_dic = create_item($conn);
-	if (strlen($result_dic["error"]) > 0) {
-		echo "There was an error message: \n" . $result_dic["error"];
-	}
-	$result_dic = create_armour($conn);
-	if (strlen($result_dic["error"]) > 0) {
-		echo "There was an error message: \n" . $result_dic["error"];
-	}  
-	$result_dic = create_magic_item($conn);
-	if (strlen($result_dic["error"]) > 0) {
-		echo "There was an error message: \n" . $result_dic["error"];
-	}  
-	//else {
-		echo "Tables created successfully.\n";
-	//}
-	return;
-}*/
+ 
+function create_all_tables($db_conn) {	
+	$error_msg = "";
+  $res = create_location($db_conn);
+  $error_msg .= $db_conn->get_error();
+  $res = create_pc($db_conn);
+  $error_msg .= $db_conn->get_error();
+  $res = create_being($db_conn);	
+  $error_msg .= $db_conn->get_error();
+	$res = create_weapon($db_conn);
+	$error_msg .= $db_conn->get_error();
+	$res = create_item($db_conn);
+	$error_msg .= $db_conn->get_error();
+	$res = create_armour($db_conn);
+	$error_msg .= $db_conn->get_error();
+	$res = create_magic_item($db_conn);
+	$error_msg .= $db_conn->get_error();
+	return $error_msg;
+}
 
 
 /* Creates a table. */
-function create_location($conn) {
+function create_location($db_conn) {
 	$sql = "create table location(
 id int not null auto_increment,
 short_lbl varchar(20) not null,
@@ -108,17 +77,19 @@ exit_s tinyint not null,
 exit_sw tinyint not null, 
 exit_w tinyint not null, 
 exit_nw tinyint not null, 
+exit_up  tinyint not null,
+exit_down tinyint not null, 
 storey_val int not null,
 visited tinyint not null,
 primary key (id)
 );";
-	$result_dic = run_modify_query($conn, $sql);
-	return $result_dic;
+  $db_conn->query($sql);  
+  return $db_conn->get_error();
 }
 
 
 /* Creates a table for the main player/npcs. */
-function create_pc($conn) {
+function create_pc($db_conn) {
 	$sql = "create table pc(
 id int not null auto_increment,
 name varchar(25),
@@ -173,13 +144,13 @@ magic_item10_id int,
 gp int not null,
 primary key (id)
 );";
-	//$result_dic = run_modify_query($conn, $sql);
-	//return $result_dic;
+  $db_conn->query($sql);  
+  return $db_conn->get_error();
 }
 
 
 /* Creates a table. */
-function create_being($conn) {
+function create_being($db_conn) {
 	$sql = "create table being(
 id int not null auto_increment,
 name varchar(25),
@@ -209,13 +180,13 @@ weapon_id2 int,
 weapon_id3 int,
 primary key (id)
 );";
-	//$result_dic = run_modify_query($conn, $sql);
-	//return $result_dic;
+  $db_conn->query($sql);  
+  return $db_conn->get_error();
 }
 
 
 /* Creates a table. */
-function create_item($conn) {
+function create_item($db_conn) {
 	$sql = "create table item(
 id int not null auto_increment,
 name varchar(30),
@@ -228,13 +199,13 @@ location_x smallint,
 uses_remaining smallint,
 primary key (id)
 );";
-  //$result_dic = run_modify_query($conn, $sql);
-	//return $result_dic;
+  $db_conn->query($sql);  
+  return $db_conn->get_error();
 }
 
 
 /* Creates a table. */
-function create_weapon($conn) {
+function create_weapon($db_conn) {
 	$sql = "create table weapon(
 id int not null auto_increment,
 name varchar(30) not null,
@@ -261,13 +232,13 @@ location_y smallint,
 location_x smallint,
 primary key (id)
 );";
-  //$result_dic = run_modify_query($conn, $sql);
-	//return $result_dic;
+  $db_conn->query($sql);  
+  return $db_conn->get_error();
 }
 
 
 /* Creates a table. */
-function create_armour($conn) {
+function create_armour($db_conn) {
 	$sql = "create table armour(
 id int not null auto_increment,
 name varchar(30) not null,
@@ -283,13 +254,13 @@ location_y smallint,
 location_x smallint,
 primary key (id)
 );";
-  //$result_dic = run_modify_query($conn, $sql);
-	//return $result_dic;
+  $db_conn->query($sql);  
+  return $db_conn->get_error();
 }
 
 
 /* Creates a table. */
-function create_magic_item($conn) {
+function create_magic_item($db_conn) {
 	$sql = "create table magic_item(
 id int not null auto_increment,
 name varchar(30) not null,
@@ -306,14 +277,25 @@ location_x smallint,
 state varchar(50),
 primary key (id)
 );";
-  //$result_dic = run_modify_query($conn, $sql);
-	//return $result_dic;
+  $db_conn->query($sql);  
+  return $db_conn->get_error();
 }
 
 
 /**
  * Main flow of program.
  */
+//Get Database connection vals from the Symfony config
+$config_vals = yaml_parse_file("../../../../../app/config/parameters.yml");
+$params = $config_vals["parameters"];
+$db_params = array("hostname"=> $params["database_host"],
+"username"=> $params["database_user"],
+"password"=> $params["database_password"],
+"database"=> $params["database_name"],
+"options"=> array("port"=> "")
+);
+
+
 $db_conn = new DBConnection($db_params);
 $db_conn->connect();
 if (strlen($db_conn->get_error()) > 0) {
@@ -322,17 +304,18 @@ if (strlen($db_conn->get_error()) > 0) {
 }
 
 
+drop_all_tables($db_conn);
 
 
- 
-/*$result_dic = get_connection();
-if (strlen($result_dic["error"]) > 0) {
-	// Possible error found.
-	echo "Error: " . $result_dic["error"];
-	exit();
+$error_msg = create_all_tables($db_conn);
+if (strlen($error_msg) > 0) {
+  echo $error_msg . "\n";
 }
-$conn = $result_dic["connection"];
-drop_all_tables($conn);
-create_all_tables($conn);*/
+else {
+  echo "All tables created.\n";
+}
+
+$res = $db_conn->close();
+
 
 ?>
