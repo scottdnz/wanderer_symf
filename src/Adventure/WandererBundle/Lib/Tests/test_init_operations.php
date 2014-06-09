@@ -40,7 +40,7 @@ class DBConnectionTest extends PHPUnit_Framework_TestCase {
 "area"=> "Renfyrd Town",
 "x_val"=> 0,
 "y_val"=> 0,
-"description"=> "<p>You are on the edge of the town docks, facing a large body of water. You can see several ships moored and sailors peforming various tasks on the long wharf.</p>",
+"description"=> "You are on the edge of the town docks, facing a large body of water. You can see several ships moored and sailors peforming various tasks on the long wharf.",
 "image"=> "docks01.jpg",
 "exit_n"=> 0,
 "exit_ne"=> 0,
@@ -79,21 +79,46 @@ visited) values (
 $loc["description"], $loc["image"], $loc["exit_n"], $loc["exit_ne"], 
 $loc["exit_e"], $loc["exit_se"], $loc["exit_s"], $loc["exit_sw"], $loc["exit_w"], 
 $loc["exit_nw"], $loc["exit_up"], $loc["exit_down"], $loc["storey_val"], 
-$loc["visited"]);    
+$loc["visited"]);
     
     $res = self::$conn->query($sql);  
     //echo $res;
     //self::$conn->get_error());;        
     $this->assertEquals(self::$conn->get_error(), "");
   }
+
   
   
   public function test_parse_location_xml() { 
     $content = file_get_contents("location_req.xml");
     $xml = simplexml_load_string($content);
     $obj = $xml->location;
-    $y_val = $obj->y_val;
-    echo "y_val: " . $y_val . "\n";
+    $exits = $obj->exits;
+    
+    $loc = array("short_lbl"=> $obj->short_lbl,
+      "area"=> $obj->area,
+      "x_val"=> intval($obj->x_val),
+      "y_val"=> intval($obj->y_val),
+      "description"=> $obj->description,
+      "exit_n"=> intval($exits->n),
+      "exit_ne"=> intval($exits->ne),
+      "exit_e"=> intval($exits->e),
+      "exit_se"=> intval($exits->se),
+      "exit_s"=> intval($exits->s),
+      "exit_sw"=> intval($exits->sw),
+      "exit_w"=> intval($exits->w),
+      "exit_nw"=> intval($exits->nw),
+      "exit_up"=> intval($exits->up),
+      "exit_down"=> intval($exits->down),
+      "storey_val"=> intval($obj->storey_val),
+      "visited"=> intval($obj->visited)
+    );
+    
+    //delete from location where id;
+    var_dump($loc);
+    echo "descr:" . $loc["description"];    
+
+
   }
   
   

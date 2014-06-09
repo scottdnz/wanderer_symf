@@ -8,18 +8,21 @@
     <x_val></x_val>
     <description></description>
     <image></image>
-    <exit_n></exit_n>
-    <exit_ne></exit_ne>
-    <exit_e></exit_e>
-    <exit_se></exit_se>
-    <exit_s></exit_s>
-    <exit_sw></exit_sw>
-    <exit_w></exit_w>
-    <exit_nw></exit_nw>
+    <exits>
+      <n></n>
+      <ne></ne>
+      <e></e>
+      <se></se>
+      <s></s>
+      <sw></sw>
+      <w></w>
+      <nw></nw>
+      <up></up>
+      <down></down>
+    </exits>
     <storey_val></storey_val>
     <visited></visited>
   </location>
-  
 </request>
 
 

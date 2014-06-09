@@ -33,6 +33,27 @@ function fillWithTestData() {
 function clearForm(frmSelected) {
   $(frmSelected)[0].reset();
 }
+
+
+function getExitsBoxes() {
+  var exits = new Array("n", "ne", "e", "se", "s", "sw", "w", "nw", "up", "down");
+  var exits_arr = new Array();
+  
+  for (var i = 0; i < exits.length; i++) {
+    checked = $("input[name='locnExits'][value='" + exits[i] + "']").prop("checked");
+    if (checked) {
+      check_val = 1;
+    }
+    else {
+      check_val = 0;
+    }   
+    exits_arr.push("<" + exits[i] + ">" + check_val + "</" + exits[i] + ">");
+  }
+  return exits_arr.join("");
+}
+
+
+
     
     
   /*
@@ -50,24 +71,23 @@ function clearForm(frmSelected) {
 
 
 function getLocnAsXML() {
-  var exitsArr = new Array();
-  $("input[name='locnExits']:checked").each(function() {
-    exitsArr.push($(this).val());
-  });
+  exits = getExitsBoxes();
+  
   var description =  $("#locnDescription").val().replace(/\r?\n/g, '<br />');
   var fData = new Array();
   fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
   fData.push("<requestLocation>");
-  fData.push("<op>SaveNew</op>");
+  fData.push("<op>SaveNewLocation</op>");
   fData.push("<location>");
   fData.push("<y_val>" +  $("#locnYVal").val() + "</y_val>");
   fData.push("<x_val>" + $("#locnXVal").val() + "</x_val>");
   fData.push("<short_lbl>" + $("#locnShortLbl").val() + "</short_lbl>");
   fData.push("<area>" + $("#locnArea").val() + "</area>");
   fData.push("<description>" + description + "</description>");
-  fData.push("<exits>" + exitsArr.join(",") + "</exits>");           
-  fData.push("<storey_val>" + $("#locnStorey").val() + "</storey_val>");
+  fData.push("<exits>" + exits + "</exits>");           
+
   fData.push("<image>" + $("#locnImage").val() + "</image>");
+  fData.push("<storey_val>" + $("#locnStorey").val() + "</storey_val>");
   fData.push("<visited>0</visited>");
   fData.push("</location>");
   fData.push("</requestLocation>");
@@ -162,6 +182,8 @@ $(document).ready(function() {
     fillWithTestData();
     
   });
+  
+
   
   
 });
