@@ -13,6 +13,7 @@ function parse_xml_location_get_2d_array($obj) {
     "x_val"=> intval($obj->x_val),
     "y_val"=> intval($obj->y_val),
     "description"=> $obj->description,
+    "image"=> $obj->image,
     "exit_n"=> intval($exits->n),
     "exit_ne"=> intval($exits->ne),
     "exit_e"=> intval($exits->e),
@@ -84,6 +85,3 @@ function get_resp_strg($error, $conf) {
   //$respObj->asXML('xml_resp.xml');
   return $respObj->asXML();
 }
-
-
-?>

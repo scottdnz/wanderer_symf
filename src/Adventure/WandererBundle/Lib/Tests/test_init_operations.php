@@ -3,6 +3,8 @@
 require_once("../central_config.php");
 require("../../Entity/DBConnection.php");
 
+use Adventure\WandererBundle\Entity\DBConnection;
+
 
 class DBConnectionTest extends PHPUnit_Framework_TestCase {
 
@@ -121,6 +123,34 @@ $loc["visited"]);
 
   }
   
+  
+  public function test_parse_item_xml() { 
+    $content = file_get_contents("item_req.xml");
+    $xml = simplexml_load_string($content);
+    $obj = $xml->item;
+    
+    $utilities = $obj->utilities;
+    $states = $obj->states;
+    
+    $item = array("name"=> $obj->name,
+    "description"=> $obj->description,
+    "image"=> $obj->image,
+    "location_y"=> intval($obj->location_y),
+    "location_x"=> intval($obj->location_x),
+    "uses_remaining"=> intval($obj->uses_remaining),
+    "util_breakable"=> intval($utilities->breakable),
+    "util_climbable"=> intval($utilities->climbable),
+    "util_lightable"=> intval($utilities->lightable),
+    "util_openable"=> intval($utilities->openable),
+    "util_takeable"=> intval($utilities->takeable),
+    "state_open"=> intval($states->open),
+    "state_useable"=> intval($states->useable),
+    "state_lit"=> intval($states->lit)
+    );
+    
+    var_dump($item);
+    echo "item: " . $item["util_openable"];
+  }
   
   
 }

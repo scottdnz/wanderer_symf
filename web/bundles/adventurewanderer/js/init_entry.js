@@ -3,7 +3,7 @@
  * author: Scott Davies 2014
  */
  
-
+/*
 function testSubmit(fData) {
   var testMsg = "<code>";
   for (var i = 0; i < fData.length; i++ ) {
@@ -28,6 +28,7 @@ function fillWithTestData() {
   });
   //$("#locnImage").val("inn.jpg");
 }
+*/
 
 
 function clearForm(frmSelected) {
@@ -53,26 +54,8 @@ function getExitsBoxes() {
 }
 
 
-
-    
-    
-  /*
-  $("#locnYVal").val("");
-  $("#locnXVal").val("");
-  $("#locnShortLbl").val("");
-  $("#locnArea").val("");
-  $("#locnDescription").val("");
-  $("input[name='locnExits']").each(function() {
-    $(this).prop("checked", false);
-   });
-   */
-  //$("#locnStorey").val("1");
-//}
-
-
 function getLocnAsXML() {
   exits = getExitsBoxes();
-  
   var description =  $("#locnDescription").val().replace(/\r?\n/g, '<br />');
   var fData = new Array();
   fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
@@ -99,7 +82,7 @@ $(document).ready(function() {
   
   //Initialising
   $("form").hide();
-  fillWithTestData();
+  //fillWithTestData();
   $("#frmLocations").show();
 
 
@@ -138,17 +121,14 @@ $(document).ready(function() {
   
   $("#locnSubmit").click(function() {
     fData = getLocnAsXML();
-    //"": $("#").val(),
-    //testSubmit(fData);
     var url = $("#frmLocations").data("route");      
     //url, data, success, datatype
     $.post(url, 
       fData, 
       function(data) {
         console.log(data);
-        //$respMsg = "<p>";
-        //$xml = $(data);
-        /*
+        $respMsg = "<p>";
+        $xml = $(data);
         $conf = $xml.find("conf").text();
         if ($conf.length > 0) {
           $respMsg += "Confirmation(s): " + $conf;
@@ -160,8 +140,6 @@ $(document).ready(function() {
           $("#respMsgArea").css("color", "red");
         }
         $("#respMsgArea").html($respMsg + "</p>");
-        */
-        
       }, // End of post success function
       "xml"
     ); // End of post call
@@ -174,13 +152,10 @@ $(document).ready(function() {
       $(this).removeClass("navItemSelected");
     });
     $(this).addClass("navItemSelected");
-    
     $("form").hide();
     $(frmSelected).show();
-    
     clearForm(frmSelected);
-    fillWithTestData();
-    
+    //fillWithTestData();
   });
   
 

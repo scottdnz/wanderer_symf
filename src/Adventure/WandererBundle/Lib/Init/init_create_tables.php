@@ -9,6 +9,7 @@
 
 
 require_once(__DIR__ . "/../../Entity/DBConnection.php");
+use Adventure\WandererBundle\Entity\DBConnection;
 
 
 /**
@@ -192,11 +193,17 @@ id int not null auto_increment,
 name varchar(30),
 description varchar(255),
 image varchar(35),
-utility varchar(50),
-state varchar(50),
 location_y smallint,
 location_x smallint,
 uses_remaining smallint,
+util_breakable tinyint,
+util_climbable tinyint,
+util_lightable tinyint,
+util_openable tinyint,
+util_takeable tinyint,
+state_open tinyint,
+state_useable tinyint,
+state_lit tinyint,   
 primary key (id)
 );";
   $db_conn->query($sql);  

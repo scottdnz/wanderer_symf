@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<request status="ok">
+  <op>SaveNewItem</op>
+  <item>
+    <name>Minor Healing Potion</name>
+    <description>Heal 10 pts</description>
+    <image>potion.png</image>
+    <utilities>
+      <breakable>1</breakable>
+      <climbable>0</climbable>
+      <lightable>0</lightable>
+      <openable>1</openable>
+      <takeable>1</takeable>
+    </utilities>
+    <states>
+      <open>0</open>
+      <useable>1</useable>
+      <lit>0</lit>
+    </states>
+    <location_y>0</location_y>
+    <location_x>4</location_x>
+    <uses_remaining>1</uses_remaining> 
+  </item>
+</request>

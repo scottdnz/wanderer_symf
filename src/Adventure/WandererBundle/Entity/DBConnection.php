@@ -1,5 +1,8 @@
 <?php
 
+namespace Adventure\WandererBundle\Entity;
+
+
 class DBConnection {
   
   /* PRIVATE FIELDS */

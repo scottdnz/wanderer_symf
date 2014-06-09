@@ -23,6 +23,18 @@
     <storey_val></storey_val>
     <visited></visited>
   </location>
+  
+  <item>
+    <name></name>
+    <description></description>
+    <image></image>
+    <utility></utility>
+    <state></state>
+    <location_y></location_y>
+    <location_x></location_x>
+    <uses_remaining></uses_remaining>
+  </item>
+  
 </request>
 
 

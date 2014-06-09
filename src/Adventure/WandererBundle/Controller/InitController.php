@@ -2,11 +2,12 @@
 
 namespace Adventure\WandererBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use Adventure\WandererBundle\Entity\DBConnection;
 
 
 require_once __DIR__ . "/../Entity/DBConnection.php";
