@@ -32,8 +32,30 @@
     <state></state>
     <location_y></location_y>
     <location_x></location_x>
+    <location_storey></location_storey>
     <uses_remaining></uses_remaining>
   </item>
+  
+  <weapon>
+    <name></name>
+    <description></description>
+    <dmg1_type></dmg1_type>
+    <dmg1_min></dmg1_min>
+    <dmg1_max></dmg1_max>
+    <dmg2_type></dmg2_type>
+    <dmg2_min></dmg2_min>
+    <dmg2_max></dmg2_max>
+    <bonus_status_type></bonus_status_type>
+    <bonus_status_val></bonus_status_val>
+    <reqd_level></reqd_level>
+    <reqd_class></reqd_class>
+    <equipped></equipped>
+    <condtn></condtn>
+    <deteriorates></deteriorates>
+    <location_y></location_y>
+    <location_x></location_x>
+    <location_storey></location_storey>
+  <weapon>
   
 </request>
 

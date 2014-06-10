@@ -95,12 +95,20 @@ function getItemAsXML() {
   fData.push("<image>" + $("#item").val() + "</image>");
   fData.push("<utilities>" + utilities + "</utilities>");
   fData.push("<states>" + states + "</states>");
-  fData.push("<location_y>" + $("#item").val() + "</location_y>");
-  fData.push("<location_x>" + $("#item").val() + "</location_x>");
-  fData.push("<uses_remaining>" + $("#item").val() + "</uses_remaining> ");
+  fData.push("<location_y>" + $("#itemYVal").val() + "</location_y>");
+  fData.push("<location_x>" + $("#itemXVal").val() + "</location_x>");
+  fData.push("<location_storey>" + $("#itemStoreyVal").val() + "</location_storey>");
+  fData.push("<uses_remaining>" + $("#itemUsesRemaining").val() + "</uses_remaining> ");
   fData.push("</item>");
   fData.push("</request>");
   return fData.join("");
+}
+
+
+function getWeaponAsXML() {
+  var description =  $("#weaponDescription").val().replace(/\r?\n/g, '<br />');
+  var fData = new Array();
+  
 }
 
 
@@ -133,6 +141,8 @@ $(document).ready(function() {
   
   //Initialising
   $("form").hide();
+  $("input[name='weaponEquipped'][value='0']").prop("checked", true); 
+  
   //fillWithTestData();
   $("#frmLocations").show();
 
@@ -186,6 +196,14 @@ $(document).ready(function() {
     var fData = getItemAsXML();
     var url = $("#frmItems").data("route");      
     postAdd(url, fData);
+  });
+  
+  
+  $("#weaponSubmit").click(function() {
+/*    var fData = getWeaponAsXML();
+    var url = $("#frmWeapons").data("route");      
+    postAdd(url, fData);
+*/
   });
   
   

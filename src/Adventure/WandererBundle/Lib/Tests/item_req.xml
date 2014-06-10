@@ -19,6 +19,7 @@
     </states>
     <location_y>0</location_y>
     <location_x>4</location_x>
+    <location_storey>1</location_storey>
     <uses_remaining>1</uses_remaining> 
   </item>
 </request>
