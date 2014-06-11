@@ -1,0 +1,62 @@
+------+-------+------------+---------+
+| id | short_lbl     | area         | description                                                                                                                                                                  | image        | exits  | x_val | y_val | storey_val | visited |
++----+---------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+--------+-------+-------+------------+---------+
+|  1 | Docks         | Renfyrd Town | <p>You are on the edge of the town docks, facing a large body of water. You can see several ships moored and sailors peforming various tasks on the long wharf.</p>          | docks01.jpg  | s      |     0 |     0 |          1 |       0 |
+|  2 | Wall          | Renfyrd Town | You have reached the edge of the town wall.                                                                                                                                  | wall01.jpg   | s      |     1 |     0 |          1 |       0 |
+|  3 | Lavish Villas | Renfyrd Town | You are in the wealthy part of town, surrounded by fine buildings and well kept walls and private gardens.                                                                   | wall01.jpg   | n,e    |     0 |     1 |          1 |       0 |
+|  4 | Inn           | Renfyrd Town | You are standing outside the Inn of the Drunken Soldier, in the middle of the town.Streets go in three directions. You can see various townsfolk going about their business. | inn.png      | n,e,w  |     1 |     1 |          1 |       0 |
+|  5 | Gates         | Renfyrd Town | You have reached the tall Eastern town gates which are made of thick oaken wood and reinforced with iron.                                                                    | gates01.jpg  | e,sw,w |     2 |     1 |          1 |       0 |
+|  6 | Market        | Renfyrd Town | You are in the main Market Square of the town. There are always a number of striped tents and booths set up here.                                                            | market01.jpg | e,w,ne |     1 |     2 |          1 |       0 |
++----+---------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+--------+-------+-------+------------+---------+
+
+
+mysql> select * from item;
++----+--------------+--------------------------------------------------------------------------------------------------------+------------+---------+-------+------------+------------+----------------+
+| id | name         | description                             
+
+
+                                                               | image      | utility | state | location_y | location_x | uses_remaining |
++----+--------------+--------------------------------------------------------------------------------------------------------+------------+---------+-------+------------+------------+----------------+
+|  1 | bottle       | An ordinary bottle.                                                                                    | bottle.png | b,l,t   | c     |          1 |          1 |            500 |
+|  2 | brown bread  | A loaf of brown bread.                                                                                 | bread.png  | b,o,t   | c     |          2 |          1 |              2 |
+|  3 | candle       | A white wax candle that is obviously good for lighting up dark places.                                 |            | l,t     | u     |          0 |          0 |             10 |
+|  4 | coil of rope | A length of strong, corded hemp rope. This will be helpful if you're ever required to climb something. | rope.png   | b,c,l,t |       |          0 |          0 |             50 |
++----+--------------+--------------------------------------------------------------------------------------------------------+------------+---------+-------+------------+------------+----------------+
+
+
++----+-----------+--------------+-------+-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+--------+---------+--------+---------+--------+---------+--------+---------+---------+-----------+------------+---------+
+| id | short_lbl | area         | x_val | y_val | description                                                                                                                                                         | image       | exit_n | exit_ne | exit_e | exit_se | exit_s | exit_sw | exit_w | exit_nw | exit_up | exit_down | storey_val | visited |
++----+-----------+--------------+-------+-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+--------+---------+--------+---------+--------+---------+--------+---------+---------+-----------+------------+---------+
+|  1 | Docks     | Renfyrd Town |     0 |     0 | <p>You are on the edge of the town docks, facing a large body of water. You can see several ships moored and sailors peforming various tasks on the long wharf.</p> | docks01.jpg |      0 |       0 |      0 |       0 |      1 |       0 |      0 |       0 |       0 |         0 |          1 |       0 |
++----+-----------+--------------+-------+-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+--------+---------+--------+---------+--------+---------+--------+---------+---------+-----------+------------+---------+
+
+
+Location ideas:
+Ruins
+Temple
+Cave - trolls
+Cemetery
+Swamp
+Sandy bank
+Hill country
+Forest
+Wasteland
+Castle - gate
+  court
+  keep
+  tower
+  dungeon
+Mountainside
+Tunnel
+Highway
+Villages
+maze
+Lakeside
+Tollbridge
+Pyramid / monument
+
+PC's:
+Radir - fighter
+Gimel - sneaker
+Araya - healer
+Worton - spellcaster
