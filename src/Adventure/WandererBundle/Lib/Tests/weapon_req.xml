@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<request status="ok">
+  <op>SaveNewWeapon</op>
+  <weapon>
+    <name>Test Sword</name>
+    <description>A big steel test sword</description>
+    <dmg1_type>s</dmg1_type>
+    <dmg1_min>1</dmg1_min>
+    <dmg1_max>20</dmg1_max>
+    <dmg2_type>p</dmg2_type>
+    <dmg2_min>1</dmg2_min>
+    <dmg2_max>20</dmg2_max>
+    <bonus_status_type>s</bonus_status_type>
+    <bonus_status_val>5</bonus_status_val>
+    <reqd_level>2</reqd_level>
+    <reqd_class>s</reqd_class>
+    <equipped>0</equipped>
+    <condtn>50</condtn>
+    <deteriorates>1</deteriorates>
+    <location_y>1</location_y>
+    <location_x>2</location_x>
+    <location_storey>1</location_storey>
+  </weapon>
+</request>

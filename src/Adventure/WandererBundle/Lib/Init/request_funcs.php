@@ -130,6 +130,76 @@ $item["state_lit"]);
 }
 
 
+function parse_xml_weapon_get_2d_array($obj) {
+  $weapon = array("name"=> $obj->name,
+    "description"=> $obj->description,
+    "image"=> $obj->image,
+    "location_y"=> intval($obj->location_y),
+    "location_x"=> intval($obj->location_x),
+    "location_storey"=> intval($obj->location_storey),
+    "dmg1_type"=> $obj->dmg1_type,
+    "dmg1_min"=> intval($obj->dmg1_min),
+    "dmg1_max"=> intval($obj->dmg1_max),
+    "dmg2_type"=> $obj->dmg2_type,
+    "dmg2_min"=> intval($obj->dmg2_min),
+    "dmg2_max"=> intval($obj->dmg2_max),
+    "bonus_status_type"=> $obj->bonus_status_type,
+    "bonus_status_val"=> intval($obj->bonus_status_val),
+    "reqd_class"=> $obj->reqd_class,
+    "reqd_level"=> intval($obj->reqd_level),
+    "equipped"=> intval($obj->equipped),
+    "condtn"=> intval($obj->condtn),
+    "deteriorates"=> intval($obj->deteriorates)
+    );
+  return $weapon;
+}
+
+
+function insert_weapon($db_conn, $weapon) {
+  $sql = sprintf("insert into weapon (
+name,
+description,
+image,
+location_y,
+location_x,
+location_storey,
+dmg1_type,
+dmg1_min,
+dmg1_max,
+dmg2_type,
+dmg2_min,
+dmg2_max,
+bonus_status_type,
+bonus_status_val,
+reqd_level,
+reqd_class,
+equipped,
+condtn,
+deteriorates) values (
+'%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, %d)",
+$weapon["name"],
+$weapon["description"],
+$weapon["image"],
+$weapon["location_y"],
+$weapon["location_x"],
+$weapon["location_storey"],
+$weapon["dmg1_type"],
+$weapon["dmg1_min"],
+$weapon["dmg1_max"],
+$weapon["dmg2_type"],
+$weapon["dmg2_min"],
+$weapon["dmg2_max"],
+$weapon["bonus_status_type"],
+$weapon["bonus_status_val"],
+$weapon["reqd_level"],
+$weapon["reqd_class"],
+$weapon["equipped"],
+$weapon["condtn"],
+$weapon["deteriorates"]);
+  $res = $db_conn->query($sql);  
+  return $db_conn->get_error();
+}
+
 
 /**
  * Creates an XML document object from the parameters passed in. Returns it
@@ -148,6 +218,4 @@ function get_resp_strg($error, $conf) {
   //$respObj->asXML('xml_resp.xml');
   return $respObj->asXML();
 }
-
-
 

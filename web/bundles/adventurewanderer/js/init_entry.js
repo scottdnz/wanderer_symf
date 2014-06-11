@@ -72,8 +72,7 @@ function getLocnAsXML() {
   fData.push("<image>" + $("#locnImage").val() + "</image>");
   fData.push("<storey_val>" + $("#locnStorey").val() + "</storey_val>");
   fData.push("<visited>0</visited>");
-  fData.push("</location>");
-  fData.push("</request>");
+  fData.push("</location></request>");
   return fData.join("");
 }
 
@@ -92,15 +91,14 @@ function getItemAsXML() {
   fData.push("<item>");
   fData.push("<name>" + $("#itemName").val() + "</name>");
   fData.push("<description>" + description + "</description>");
-  fData.push("<image>" + $("#item").val() + "</image>");
+  fData.push("<image>" + $("#itemImage").val() + "</image>");
   fData.push("<utilities>" + utilities + "</utilities>");
   fData.push("<states>" + states + "</states>");
   fData.push("<location_y>" + $("#itemYVal").val() + "</location_y>");
   fData.push("<location_x>" + $("#itemXVal").val() + "</location_x>");
   fData.push("<location_storey>" + $("#itemStoreyVal").val() + "</location_storey>");
   fData.push("<uses_remaining>" + $("#itemUsesRemaining").val() + "</uses_remaining> ");
-  fData.push("</item>");
-  fData.push("</request>");
+  fData.push("</item></request>");
   return fData.join("");
 }
 
@@ -108,7 +106,31 @@ function getItemAsXML() {
 function getWeaponAsXML() {
   var description =  $("#weaponDescription").val().replace(/\r?\n/g, '<br />');
   var fData = new Array();
-  
+  fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+  fData.push("<request>");
+  fData.push("<op>SaveNewWeapon</op>");
+  fData.push("<weapon>");
+  fData.push("<name>" + $("#weaponName").val() + "</name>");
+  fData.push("<description>" + description + "</description>");
+  fData.push("<dmg1_type>" + $("#weaponDmg1Type").val() + "</dmg1_type>");
+  fData.push("<dmg1_min>" + $("#weaponDmg1Min").val()  + "</dmg1_min>");
+  fData.push("<dmg1_max>" + $("#weaponDmg1Max").val()  + "</dmg1_max>");
+  fData.push("<dmg2_type>" + $("#weaponDmg2Type").val()  + "</dmg2_type>");
+  fData.push("<dmg2_min>" + $("#weaponDmg2Min").val()  + "</dmg2_min>");
+  fData.push("<dmg2_max>" + $("#weaponDmg2Max").val()  + "</dmg2_max>");
+  fData.push("<bonus_status_type>" + $("input[name='weaponBonusStatusType']").val() + "</bonus_status_type>");
+  fData.push("<bonus_status_val>" + $("#weaponBonusStatusVal").val() + "</bonus_status_val>");
+  fData.push("<reqd_level>" + $("#weaponReqdLevel").val() + "</reqd_level>");
+  fData.push("<reqd_class>" + $("#weaponReqdClass").val() + "</reqd_class>");
+  fData.push("<equipped>" + $("input[name='weaponEquipped']").val() + "</equipped>");
+  fData.push("<condtn>" + $("#weaponCondtn").val() + "</condtn>");
+  fData.push("<deteriorates>" + $("input[name='weaponDeteriorates']").val() + "</deteriorates>");
+  fData.push("<location_y>" + $("#weaponYVal").val() + "</location_y>");
+  fData.push("<location_x>" + $("#weaponXVal").val() + "</location_x>");
+  fData.push("<location_storey>" + $("#weaponStoreyVal").val() + "</location_storey>");
+  fData.push("<image>" + $("#weaponImage").val() + "</image>"):
+  fData.push("</weapon></request>");
+  return fData.join("");
 }
 
 
@@ -141,8 +163,9 @@ $(document).ready(function() {
   
   //Initialising
   $("form").hide();
-  $("input[name='weaponEquipped'][value='0']").prop("checked", true); 
-  
+  $("input[name='weaponEquipped'][value='0']").prop("checked", true);
+  $("input[name='weaponDeteriorates'][value='1']").prop("checked", true);  
+
   //fillWithTestData();
   $("#frmLocations").show();
 
@@ -200,10 +223,9 @@ $(document).ready(function() {
   
   
   $("#weaponSubmit").click(function() {
-/*    var fData = getWeaponAsXML();
+    var fData = getWeaponAsXML();
     var url = $("#frmWeapons").data("route");      
     postAdd(url, fData);
-*/
   });
   
   
@@ -216,7 +238,7 @@ $(document).ready(function() {
     $(this).addClass("navItemSelected");
     $("form").hide();
     $(frmSelected).show();
-    clearForm(frmSelected);
+    //clearForm(frmSelected);
     //fillWithTestData();
   });
   

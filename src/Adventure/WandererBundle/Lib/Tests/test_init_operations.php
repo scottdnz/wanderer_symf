@@ -117,8 +117,8 @@ $loc["visited"]);
     );
     
     //delete from location where id;
-    var_dump($loc);
-    echo "descr:" . $loc["description"];    
+    /*var_dump($loc);
+    echo "descr:" . $loc["description"];    */
 
 
   }
@@ -148,9 +148,38 @@ $loc["visited"]);
     "state_lit"=> intval($states->lit)
     );
     
-    var_dump($item);
-    echo "item: " . $item["util_openable"];
+    /*var_dump($item);
+    echo "item: " . $item["util_openable"];*/
   }
   
   
+  public function test_parse_weapon_xml() { 
+    $content = file_get_contents("weapon_req.xml");
+    $xml = simplexml_load_string($content);
+    $obj = $xml->weapon;
+  
+    $weapon = array("name"=> $obj->name,
+    "description"=> $obj->description,
+    "image"=> $obj->image,
+    "location_y"=> intval($obj->location_y),
+    "location_x"=> intval($obj->location_x),
+    "location_storey"=> intval($obj->location_storey),
+    "dmg1_type"=> $obj->dmg1_type,
+    "dmg1_min"=> intval($obj->dmg1_min),
+    "dmg1_max"=> intval($obj->dmg1_max),
+    "dmg2_type"=> $obj->dmg2_type,
+    "dmg2_min"=> intval($obj->dmg2_min),
+    "dmg2_max"=> intval($obj->dmg2_max),
+    "bonus_status_type"=> $obj->bonus_status_type,
+    "bonus_status_val"=> intval($obj->bonus_status_val),
+    "reqd_class"=> $obj->reqd_class,
+    "reqd_level"=> intval($obj->reqd_level),
+    "equipped"=> intval($obj->equipped),
+    "condtn"=> intval($obj->condtn),
+    "deteriorates"=> intval($obj->deteriorates)
+    );
+    var_dump($weapon);
+  }
+    
+    
 }

@@ -57,8 +57,7 @@ class InitController extends Controller {
         }
       }
     
-    
-      if ($xml->op == "SaveNewItem") {
+      elseif ($xml->op == "SaveNewItem") {
         $item = parse_xml_item_get_2d_array($xml->item);
         $error_msg = insert_item($db_conn, $item);
         if (strlen($error_msg) > 0) {
@@ -68,6 +67,18 @@ class InitController extends Controller {
           $conf .= "The item was successfully added/edited. ";
         }
       }
+      
+      elseif ($xml->op == "SaveNewWeapon") {
+        $weapon = parse_xml_weapon_get_2d_array($xml->weapon);
+        $error_msg = insert_weapon($db_conn, $weapon);
+        if (strlen($error_msg) > 0) {
+         $error .= "Problem saving item to database: " . $error_msg;
+        }
+        else {
+          $conf .= "The weapon was successfully added/edited. ";
+        }
+      }
+      
     }
     
     else {  // Not an XML request
