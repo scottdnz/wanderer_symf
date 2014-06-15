@@ -60,3 +60,5 @@ Radir - fighter
 Gimel - sneaker
 Araya - healer
 Worton - spellcaster
+
+

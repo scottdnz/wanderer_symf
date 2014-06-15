@@ -128,7 +128,7 @@ function getWeaponAsXML() {
   fData.push("<location_y>" + $("#weaponYVal").val() + "</location_y>");
   fData.push("<location_x>" + $("#weaponXVal").val() + "</location_x>");
   fData.push("<location_storey>" + $("#weaponStoreyVal").val() + "</location_storey>");
-  fData.push("<image>" + $("#weaponImage").val() + "</image>"):
+  fData.push("<image>" + $("#weaponImage").val() + "</image>");
   fData.push("</weapon></request>");
   return fData.join("");
 }
@@ -167,6 +167,7 @@ $(document).ready(function() {
   $("input[name='weaponDeteriorates'][value='1']").prop("checked", true);  
 
   //fillWithTestData();
+  $("form").hide();
   $("#frmLocations").show();
 
 
