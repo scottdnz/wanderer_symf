@@ -35,7 +35,7 @@ if (strlen($db_conn->get_error()) > 0) {
 
 echo "Enter the locations XML source file name:\n";
 $line = trim(fgets(STDIN));
-echo "k" . $line . "k\n";
+//$line 
 
 /*
 $content = file_get_contents("location.xml");

@@ -35,10 +35,21 @@ class DBConnectionTest extends PHPUnit_Framework_TestCase {
   
   public function test_() {   
    
-    $res = self::$conn->query($sql);  
+    //$res = self::$conn->query($sql);  
+
+    $xml_strg = file_get_contents("location_req.xml");    
     
+    $loc = new Location();
+    $loc->set_from_XML($xml_strg);
+    $loc_dict = $loc->get_as_dict();
     
-    $content = file_get_contents("location_req.xml");
+       
+    echo "short_lbl: " . $loc_dict["short_lbl"] . "\n";
+    $exit_vals = array("n", "ne", "e", "se", "s", "sw", "w", "nw", "up", "down");
+    foreach ($exit_vals as $exit_val) {
+      echo $exit_val . ": " . $loc_dict["exits"][$exit_val] . "\n";
+    }
+    
     
     //self::$conn->get_error());;        
     $this->assertEquals(self::$conn->get_error(), "");
