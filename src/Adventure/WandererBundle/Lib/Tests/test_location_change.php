@@ -1,6 +1,7 @@
 <?php
 
 require("../../Entity/DBConnection.php");
+
 require("location_class_test.php");
 
 use Adventure\WandererBundle\Entity\DBConnection;
@@ -33,29 +34,29 @@ class DBConnectionTest extends PHPUnit_Framework_TestCase {
   }
   
   
-  public function test_() {   
-   
-    //$res = self::$conn->query($sql);  
-
+  public function test_set_from_XML() {   
     $xml_strg = file_get_contents("location_req.xml");    
-    
     $loc = new Location();
     $loc->set_from_XML($xml_strg);
-    $loc_dict = $loc->get_as_dict();
-    
-       
-    echo "short_lbl: " . $loc_dict["short_lbl"] . "\n";
-    $exit_vals = array("n", "ne", "e", "se", "s", "sw", "w", "nw", "up", "down");
-    foreach ($exit_vals as $exit_val) {
-      echo $exit_val . ": " . $loc_dict["exits"][$exit_val] . "\n";
-    }
-    
-    
-    //self::$conn->get_error());;        
-    $this->assertEquals(self::$conn->get_error(), "");
+    $this->assertEquals($loc->get_error(), "");
   }
   
   
+  public function test_get_as_dict() {
+    $xml_strg = file_get_contents("location_req.xml");
+    $loc = new Location();
+    $loc->set_from_XML($xml_strg);
+    
+    $loc_dict = $loc->get_as_dict();
+    /*echo "short_lbl: " . $loc_dict["short_lbl"] . "\n";
+    $exit_vals = array("n", "ne", "e", "se", "s", "sw", "w", "nw", "up", "down");
+    foreach ($exit_vals as $exit_val) {
+      echo $exit_val . ": " . $loc_dict["exits"][$exit_val] . "\n";
+    }*/
+    $this->assertEquals($loc->get_error(), "");
+  }
+  
+    
   /*
   public function test_() {   
    
