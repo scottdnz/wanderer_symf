@@ -8,3 +8,5 @@ $db_params = array("hostname"=> "localhost",
 );
   
 
+$X_LIMIT = 9;
+$Y_LIMIT = 9;
