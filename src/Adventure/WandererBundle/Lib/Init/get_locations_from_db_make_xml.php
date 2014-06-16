@@ -30,17 +30,17 @@ function make_xml_from_recs($recs) {
         $elem = $loc_elem->addChild($field);
         $elem->{0} = $rec[$field];
       }
-    }
-    $elem = $loc_elem->addChild("exits");
-    $elem->n = $rec["exit_n"];
-    $elem->ne = $rec["exit_ne"];
-    $elem->e = $rec["exit_e"];
-    $elem->se = $rec["exit_se"];
-    $elem->s = $rec["exit_s"];
-    $elem->sw = $rec["exit_sw"];
-    $elem->w = $rec["exit_w"];
-    $elem->up = $rec["exit_up"];
-    $elem->down = $rec["exit_down"];
+      $elem = $loc_elem->addChild("exits");
+      $elem->n = $rec["exit_n"];
+      $elem->ne = $rec["exit_ne"];
+      $elem->e = $rec["exit_e"];
+      $elem->se = $rec["exit_se"];
+      $elem->s = $rec["exit_s"];
+      $elem->sw = $rec["exit_sw"];
+      $elem->w = $rec["exit_w"];
+      $elem->up = $rec["exit_up"];
+      $elem->down = $rec["exit_down"];
+      }   
   }
   return $xml_obj;
 }
@@ -83,44 +83,3 @@ $xml_obj->asXML($f_name);
 echo "File " . $f_name . "written.\n";
 
 
-/*
-<location>
-    <short_lbl>Docks</short_lbl>
-    <area>Renfyrd Town</area>
-    <y_val>0</y_val>
-    <x_val>0</x_val>
-    <description>You are on the edge of the town docks, facing a large body of water. You can see several ships moored and sailors peforming various tasks on the long wharf.</description>
-    <image>docks01.jpg</image>
-    <exits>
-      <n>0</n>
-      <ne>0</ne>
-      <e>0</e>
-      <se>0</se>
-      <s>1</s>
-      <sw>0</sw>
-      <w>0</w>
-      <nw>0</nw>
-      <up>0</up>
-      <down>0</down>
-    </exits>
-    <storey_val>1</storey_val>
-    <visited>0</visited>
-  </location>
-*/
-/*
-  fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-  fData.push("<request>");
-  fData.push("<op>SaveNewLocation</op>");
-  fData.push("<location>");
-  fData.push("<y_val>" +  $("#locnYVal").val() + "</y_val>");
-  fData.push("<x_val>" + $("#locnXVal").val() + "</x_val>");
-  fData.push("<short_lbl>" + $("#locnShortLbl").val() + "</short_lbl>");
-  fData.push("<area>" + $("#locnArea").val() + "</area>");
-  fData.push("<description>" + description + "</description>");
-  fData.push("<exits>" + exits + "</exits>");           
-  fData.push("<image>" + $("#locnImage").val() + "</image>");
-  fData.push("<storey_val>" + $("#locnStorey").val() + "</storey_val>");
-  fData.push("<visited>0</visited>");
-  fData.push("</location></request>");
-  
-*/
