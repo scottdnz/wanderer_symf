@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<locations>
+  <location>
+    <id>9</id>
+    <short_lbl>Road to Renfyrd</short_lbl>
+    <area>Falsea</area>
+    <description>You are on well-maintained paved road that leads to the town of Renfyrd. To the west you can spy the town walls, to the north is an old graveyard, and to the southeast is a grey mountain.</description>
+    <image/>
+    <x_val>3</x_val>
+    <y_val>1</y_val>
+    <storey_val>1</storey_val>
+    <visited>0</visited>
+    <exits>
+      <n>1</n>
+      <ne>0</ne>
+      <e>1</e>
+      <se>1</se>
+      <s>0</s>
+      <sw>0</sw>
+      <w>1</w>
+      <nw>0</nw>
+      <up>0</up>
+      <down>0</down>
+    </exits>
+  </location>
+</locations>

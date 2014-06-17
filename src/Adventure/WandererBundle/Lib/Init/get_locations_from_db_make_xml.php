@@ -38,6 +38,7 @@ function make_xml_from_recs($recs) {
       $elem->s = $rec["exit_s"];
       $elem->sw = $rec["exit_sw"];
       $elem->w = $rec["exit_w"];
+      $elem->nw = $rec["exit_nw"];
       $elem->up = $rec["exit_up"];
       $elem->down = $rec["exit_down"];
       }   

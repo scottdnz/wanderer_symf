@@ -96,6 +96,14 @@ class LocationTest extends PHPUnit_Framework_TestCase {
     }*/
   }
   
+  
+  public function test_get_as_XML() {
+    self::$loc->set_from_XML(self::$start_location_xml);
+    $xml_text = self::$loc->get_as_XML();
+    //echo $xml_text;
+    $this->assertEquals(self::$loc->get_error(), "");
+  }
+  
       
   public function test_move_north() {   
     self::$loc->set_from_XML(self::$start_location_xml);
@@ -165,6 +173,13 @@ class LocationTest extends PHPUnit_Framework_TestCase {
     self::$loc->set_from_XML(self::$start_location_xml);
     $confirmation = self::$loc->try_move("down");
     $this->assertEquals(self::$loc->get_error(), "Error - Type: Moving, You cannot climb down. ");
+  }
+  
+  
+  public function test_move_bad_direction() {   
+    self::$loc->set_from_XML(self::$start_location_xml);
+    $confirmation = self::$loc->try_move("tiddlywinks");
+    $this->assertEquals(self::$loc->get_error(), "Error - Type: Moving, You cannot move in that direction. ");
   }
     
   /*

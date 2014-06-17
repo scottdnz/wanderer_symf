@@ -13,6 +13,17 @@ require_once("../central_config.php");
  
  
 class Location {
+  
+  private static $id;
+  private static $short_lbl;
+  private static $area;
+  private static $x_val;
+  private static $y_val;
+  private static $description;
+  private static $image;
+  private static $exits;
+  private static $storey_val;
+  private static $visited;
 
 
   function __construct() {
@@ -20,27 +31,40 @@ class Location {
   }
   
   
+  /**
+  * 
+  */
   private function set_error($beginning, $error_msg) {
     $this->_error .= sprintf("Error - Type: %s, %s", $beginning, $error_msg);
   }
   
   
+  /**
+  * 
+  */
   private function clear_error() {
     $this->_error = "";
   }
   
   
+  /**
+  * 
+  */
   public function get_error() {
     return $this->_error;
   }
   
   
+  /**
+  * 
+  */
   public function set_from_XML($xml_strg) {
     try {
       $xml = simplexml_load_string($xml_strg);
       $obj = $xml->location;
       $exits = $obj->exits;
       
+      $this->id = $obj->id;
       $this->short_lbl = $obj->short_lbl;
       $this->area = $obj->area;
       $this->x_val = intval($obj->x_val);
@@ -68,6 +92,43 @@ class Location {
   }
   
   
+  /**
+  * 
+  */
+  public function get_as_XML() {
+    $xml_obj = new SimpleXMLElement("<locations />");  
+    $loc_elem = $xml_obj->addChild("location");
+    
+    $elem = $loc_elem->addChild("id", $this->id);
+    $elem = $loc_elem->addChild("short_lbl", $this->short_lbl);
+    $elem = $loc_elem->addChild("area", $this->area);
+    $elem = $loc_elem->addChild("description", $this->description);
+    $elem = $loc_elem->addChild("image", $this->image);
+    $elem = $loc_elem->addChild("x_val", $this->x_val);
+    $elem = $loc_elem->addChild("y_val", $this->y_val);
+    $elem = $loc_elem->addChild("storey_val", $this->storey_val);
+    $elem = $loc_elem->addChild("visited", $this->visited);
+    
+    $elem = $loc_elem->addChild("exits");
+    $exits = $this->exits;
+    $elem->n = $exits["n"];
+    $elem->ne = $exits["ne"];
+    $elem->e = $exits["e"];
+    $elem->se = $exits["se"];
+    $elem->s = $exits["s"];
+    $elem->sw = $exits["sw"];
+    $elem->w = $exits["w"];
+    $elem->nw = $exits["nw"];
+    $elem->up = $exits["up"];
+    $elem->down = $exits["down"];
+             
+    return $xml_obj->asXML();
+  }
+  
+  
+  /**
+  * 
+  */
   public function get_as_dict() {
     try {   
       $loc = array("short_lbl"=> $this->short_lbl,
@@ -99,6 +160,9 @@ class Location {
   }
   
   
+  /**
+  * 
+  */
   public function try_move($direction) {
     global $Y_LIMIT;
     global $X_LIMIT;
@@ -187,11 +251,44 @@ class Location {
       else {
         $this->set_error("Moving", "You cannot climb down. ");
       }  
-
       break;
+    default:
+      $this->set_error("Moving", "You cannot move in that direction. ");
     }
     return $conf;
-    
   } 
+  
+  
+  /**
+  * Returns XML
+  */
+  public function get_display() {
+      
+  } 
+  
+  
+  /**
+  * 
+  */
+  public function lock_exit($direction) {
+        
+  }   
+  
+
+  /**
+  * 
+  */  
+  public function unlock_exit($direction) {
+        
+  }
+  
+
+  /**
+  * 
+  */    
+  public function set_visited() {
+    $this->visited = 1;
+  }
+ 
   
 }

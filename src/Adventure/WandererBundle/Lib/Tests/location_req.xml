@@ -2,6 +2,7 @@
 <request status="ok">
   <op>SaveNewLocation</op>
   <location>
+    <id>1</id>
     <short_lbl>Docks</short_lbl>
     <area>Renfyrd Town</area>
     <y_val>0</y_val>
