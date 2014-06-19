@@ -1,0 +1,10 @@
+<descriptions>
+  <description>
+    <id>9</id>
+    <short_lbl>Road to Renfyrd</short_lbl>
+    <area>Falsea</area>
+    <description>You are on well-maintained paved road that leads to the town of Renfyrd. To the west you can spy the town walls, to the north is an old graveyard, and to the southeast is a grey mountain.</description>
+    <image/>
+    <exits_msg>You can go north, east, southeast and west. </exits_msg>
+  </description>
+</descriptions>

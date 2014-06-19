@@ -1,10 +1,10 @@
 <?php
 
-//require("../../Entity/DBConnection.php");
+require("../../Entity/DBConnection.php");
 require_once("../central_config.php");
 require_once("location_class_test.php");
 
-//use Adventure\WandererBundle\Entity\DBConnection;
+use Adventure\WandererBundle\Entity\DBConnection;
 
 
 /**
@@ -40,9 +40,18 @@ function get_start_location_xml($xml_strg) {
 }
 
 
+function get_start_locn_from_db($db_conn) {
+  $sql = "select * from location where y_val = 1 and x_val = 3 limit 1;";
+  $res = $db_conn->query($sql);
+  $res = $db_conn->fetch_assoc_array($res);
+  return $res[0];
+}
+
+
 class LocationTest extends PHPUnit_Framework_TestCase {
 
-  //protected static $conn;
+  protected static $conn;
+  protected static $locn_from_db;
   protected static $xml_strg;
   protected static $start_location_xml;
   protected static $loc;
@@ -52,7 +61,7 @@ class LocationTest extends PHPUnit_Framework_TestCase {
 
   public static function setUpBeforeClass() {
     // Comment the next lines out to test the connect/close methods
-    /*$vals = yaml_parse_file("../../../../../app/config/parameters.yml");
+    $vals = yaml_parse_file("../../../../../app/config/parameters.yml");
     $params = $vals["parameters"];
     $db_params = array("hostname"=> $params["database_host"],
     "username"=> $params["database_user"],
@@ -62,9 +71,9 @@ class LocationTest extends PHPUnit_Framework_TestCase {
     );
 	  self::$conn = new DBConnection($db_params);
     self::$conn->connect();
-    */
+    
     //self::$xml_strg = file_get_contents("location_req.xml");
-    self::$xml_strg = file_get_contents("../Init/locations_20140616.xml");
+    self::$xml_strg = file_get_contents("../Init/locations_20140617.xml");
     self::$start_location_xml = get_start_location_xml(self::$xml_strg);
     self::$loc = new Location();
   }
@@ -72,11 +81,10 @@ class LocationTest extends PHPUnit_Framework_TestCase {
   
   public static function tearDownAfterClass() {
     // Comment this out if needed
-    //$ignored = self::$conn->close();
+    $ignored = self::$conn->close();
     //remove_test_data();  
   }
 
-  
   
   public function test_set_from_XML() {   
     self::$loc->set_from_XML(self::$start_location_xml);
@@ -181,16 +189,23 @@ class LocationTest extends PHPUnit_Framework_TestCase {
     $confirmation = self::$loc->try_move("tiddlywinks");
     $this->assertEquals(self::$loc->get_error(), "Error - Type: Moving, You cannot move in that direction. ");
   }
+  
+  
+  public function test_get_display() {   
+    self::$loc->set_from_XML(self::$start_location_xml);
+    $xml_text = self::$loc->get_display();
+    //echo $xml_text;
+  }
     
-  /*
-  public function test_() {   
-   
-    $res = self::$conn->query($sql);  
-    //echo $res;
-    //self::$conn->get_error());;        
+  
+  public function test_set_from_db_record() {   
+    $db_rec = get_start_locn_from_db(self::$conn);
+    self::$loc->set_from_db_record($db_rec);
+    $loc_dict = self::$loc->get_as_dict();
+    //var_dump($loc_dict);    
     $this->assertEquals(self::$conn->get_error(), "");
   }
-  */
+  
   
   
 }

@@ -24,10 +24,32 @@ class Location {
   private static $exits;
   private static $storey_val;
   private static $visited;
+  
+  private static $full_val;
 
 
   function __construct() {
     $this->clear_error();
+    $this->exits = array("n"=> 0,
+      "ne"=> 0,
+      "e"=> 0,
+      "se"=> 0,
+      "s"=> 0,
+      "sw"=> 0,
+      "w"=> 0,
+      "nw"=> 0,
+      "up"=> 0,
+      "down");
+    $this->full_val  = array("n"=> "north", 
+    "ne"=> "northeast",
+    "e"=> "east",
+    "se"=> "southeast",
+    "s"=> "south",
+    "sw"=> "southwest",
+    "w"=> "west",
+    "nw"=> "northwest",
+    "up"=> "up",
+    "down"=> "down");    
   }
   
   
@@ -72,23 +94,40 @@ class Location {
       $this->description = $obj->description;
       $this->image = $obj->image;      
            
-      $this->exits = array("n"=> intval($exits->n),
-        "ne"=> intval($exits->ne),
-        "e"=> intval($exits->e),
-        "se"=> intval($exits->se),
-        "s"=> intval($exits->s),
-        "sw"=> intval($exits->sw),
-        "w"=> intval($exits->w),
-        "nw"=> intval($exits->nw),
-        "up"=> intval($exits->up),
-        "down"=> intval($exits->down) 
-      );
+      $this->exits["n"] = intval($exits->n);
+      $this->exits["ne"] = intval($exits->ne);
+      $this->exits["e"] = intval($exits->e);
+      $this->exits["se"] = intval($exits->se);
+      $this->exits["s"] = intval($exits->s);
+      $this->exits["sw"] = intval($exits->sw);
+      $this->exits["w"] = intval($exits->w);
+      $this->exits["nw"] = intval($exits->nw);
+      $this->exits["up"] = intval($exits->up);
+      $this->exits["down"] = intval($exits->down);
       $this->storey_val = intval($obj->storey_val);
       $this->visited = intval($obj->visited);
     }
     catch (Exception $exc) {
       $this->set_error("set_from_XML message: ", $exc->getMessage());
     }
+  }
+  
+  
+  public function set_from_db_record($rec) {
+    $this->id = $rec["id"];
+    $this->short_lbl = $rec["short_lbl"];
+    $this->area = $rec["area"];
+    $this->x_val = intval($rec["x_val"]);
+    $this->y_val = intval($rec["y_val"]);
+    $this->description = $rec["description"];
+    $this->image = $rec["image"];
+    
+    foreach ($this->full_val as $direction=> $val) {
+      $this->exit[$direction] = intval($rec["exit_" . $direction]);
+    }      
+    
+    $this->storey_val = intval($rec["storey_val"]);
+    $this->visited = intval($rec["visited"]);
   }
   
   
@@ -259,27 +298,59 @@ class Location {
   } 
   
   
+  private function get_exits_msg() { 
+    $possible_exits = array();  
+    foreach ($this->exits as $dir=> $val) {
+      //echo $dir . ": " . $val . "\n";
+      if ($val == 1) {
+        $possible_exits[] = $this->full_val[$dir];
+      }
+    }
+    $last_index = sizeof($possible_exits) - 1;
+    if (sizeof($possible_exits) > 1) {
+      $all_except_last = array_slice($possible_exits, 0, -1);
+      $first_part = implode(", ", $all_except_last);
+      $last_part = " and " . $possible_exits[$last_index];
+      $exit_msg = $first_part . $last_part;
+    }
+    else {
+      $exit_msg = implode(", ", $possible_exits);
+    } 
+    return sprintf("You can go %s. ", $exit_msg);
+  }
+  
+  
   /**
-  * Returns XML
+  * For the display window. Returns XML
   */
   public function get_display() {
-      
+    $xml_obj = new SimpleXMLElement("<descriptions />");  
+    $descr_elem = $xml_obj->addChild("description");
+    $elem = $descr_elem->addChild("id", $this->id);
+    $elem = $descr_elem->addChild("short_lbl", $this->short_lbl);
+    $elem = $descr_elem->addChild("area", $this->area);
+    $elem = $descr_elem->addChild("description", $this->description);
+    $elem = $descr_elem->addChild("image", $this->image);
+    $elem = $descr_elem->addChild("exits_msg", $this->get_exits_msg());
+    return $xml_obj->asXML();
   } 
-  
-  
-  /**
-  * 
-  */
-  public function lock_exit($direction) {
-        
-  }   
   
 
   /**
   * 
   */  
   public function unlock_exit($direction) {
-        
+    $res = array("conf"=> "", "err"=> "");
+    // If unlockable and have key
+    //
+    if ($this->exits[$direction] == 2) {    
+      $this->exits[$direction] = 1;
+      $res["conf"] = sprintf("You have unlocked the exit to the %s. ", $this->full_val($direction));
+    }
+    else {
+      $res["err"] = sprintf("You cannot unlock the exit to the %s. ", $this->full_val($direction));
+    }
+    return $res;
   }
   
 
