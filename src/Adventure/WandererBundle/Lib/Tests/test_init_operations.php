@@ -178,8 +178,57 @@ $loc["visited"]);
     "condtn"=> intval($obj->condtn),
     "deteriorates"=> intval($obj->deteriorates)
     );
-    var_dump($weapon);
+//    var_dump($weapon);
   }
+  
+  
+  public function test_parse_being_xml() { 
+    $content = file_get_contents("being_req.xml");
+    $xml = simplexml_load_string($content);
+    $obj = $xml->being;
     
-    
+    $resistances = array("", "");
+    $vulnerabilities = array("", "");
+    $i = 0;
+    foreach ($obj->resistances->resistance as $resistance) {
+      $resistances[$i] = strval($resistance);
+      $i++;
+    }
+    $i = 0;
+    foreach ($obj->vulnerabilities->vulnerability as $vulnerability) {
+      $vulnerabilities[$i] = strval($vulnerability);
+      $i++;
+    }
+  
+    $being = array("name"=> strval($obj->name),
+    "race"=> ($obj->race),
+    "hp"=> intval($obj->hp),
+    "level"=> intval($obj->level),
+    "mp"=> intval($obj->mp),
+    "defence"=> intval($obj->defence),
+    "image"=> strval($obj->image),
+    "str"=> intval($obj->str),
+    "dex"=> intval($obj->dex),
+    "con"=> intval($obj->con),
+    "wis"=> intval($obj->wis),
+    "itg"=> intval($obj->itg),
+    "cha"=> intval($obj->cha),
+    "mood"=> intval($obj->mood),
+    "location_y"=> intval($obj->location_y),
+    "location_x"=> intval($obj->location_x),
+    "location_storey"=> intval($obj->location_storey),
+    "weapon_id1"=> intval($obj->weapon_id1),
+    "item1_id"=> intval($obj->item1_id),
+    "item2_id"=> intval($obj->item2_id),
+    "gp"=> intval($obj->gp),
+    "resistance1"=> $resistances[0],
+    "resistance2"=> $resistances[1],
+    "vulnerability1"=> $vulnerabilities[0],
+    "vulnerability2"=> $vulnerabilities[1],
+    "weapon_id2"=> intval($obj->weapon_id2),
+    "weapon_id3"=> intval($obj->weapon_id3)
+    );
+    var_dump($being);  
+  }
+  
 }

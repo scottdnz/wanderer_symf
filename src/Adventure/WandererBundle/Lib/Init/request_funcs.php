@@ -201,6 +201,105 @@ $weapon["deteriorates"]);
 }
 
 
+function insert_being($db_conn, $being) {
+  $sql = sprintf("insert into being (
+name,
+race,
+hp,
+level,
+mp,
+defence,
+image,
+str,
+dex,
+con,
+wis,
+itg,
+cha,
+mood,
+location_y,
+location_x,
+location_storey,
+weapon_id1,
+item1_id,
+item2_id,
+gp,
+resistant,
+vulnerable,
+weapon_id2,
+weapon_id3) ) values (
+'%s', '%s', '%s', %d, %d, %d, %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s',
+'%s', d, d, d, d, d,d, d, '%s', '%s', %d, %d)", 
+$being["name"],
+$being["race"],
+$being["race_plural"],
+$being["hp"],
+$being["level"],
+$being["mp"],
+$being["defence"],
+$being["image"],
+$being["str"],
+$being["dex"],
+$being["con"],
+$being["wis"],
+$being["itg"],
+$being["cha"],
+$being["mood"],
+$being["location_y"],
+$being["location_x"],
+$being["location_storey"],
+$being["weapon_id1"],
+$being["item1_id"],
+$being["item2_id"],
+$being["gp"],
+$being["resistant"],
+$being["vulnerable"],
+$being["weapon_id2"],
+$being["weapon_id3"]);
+  $res = $db_conn->query($sql);  
+  return $db_conn->get_error();
+}
+
+
+function parse_xml_being_get_2d_array($obj) {
+  $resistances = array();
+  $vulnerabilities = array();
+  foreach ($obj->resistances->resistance as $resistance) {
+    $resistances[] = strval($resistance);
+  }
+  foreach ($obj->vulnerabilities->vulnerability as $vulnerability) {
+    $vulnerabilities[] = strval($vulnerability);
+  }
+  $being = array("name"=> strval($obj->name),
+    "race"=> ($obj->race),
+    "hp"=> intval($obj->hp),
+    "level"=> intval($obj->level),
+    "mp"=> intval($obj->mp),
+    "defence"=> intval($obj->defence),
+    "image"=> strval($obj->image),
+    "str"=> intval($obj->str),
+    "dex"=> intval($obj->dex),
+    "con"=> intval($obj->con),
+    "wis"=> intval($obj->wis),
+    "itg"=> intval($obj->itg),
+    "cha"=> intval($obj->cha),
+    "mood"=> intval($obj->mood),
+    "location_y"=> intval($obj->location_y),
+    "location_x"=> intval($obj->location_x),
+    "location_storey"=> intval($obj->location_storey),
+    "weapon_id1"=> intval($obj->weapon_id1),
+    "item1_id"=> intval($obj->item1_id),
+    "item2_id"=> intval($obj->item2_id),
+    "gp"=> intval($obj->gp),
+    "resistances"=> $resistances,
+    "vulnerability"=> $vulnerabilities,
+    "weapon_id2"=> intval($obj->weapon_id2),
+    "weapon_id3"=> intval($obj->weapon_id3)
+    );
+  return $being;
+}
+
+
 /**
  * Creates an XML document object from the parameters passed in. Returns it
  * converted to a string.

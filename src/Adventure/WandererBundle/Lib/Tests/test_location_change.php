@@ -195,6 +195,7 @@ class LocationTest extends PHPUnit_Framework_TestCase {
     self::$loc->set_from_XML(self::$start_location_xml);
     $xml_text = self::$loc->get_display();
     //echo $xml_text;
+    $this->assertGreaterThan(0, strlen($xml_text));
   }
     
   

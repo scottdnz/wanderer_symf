@@ -79,6 +79,17 @@ class InitController extends Controller {
         }
       }
       
+       elseif ($xml->op == "SaveNewBeing") {
+        $weapon = parse_xml_being_get_2d_array($xml->being);
+        $error_msg = insert_being($db_conn, $being);
+        if (strlen($error_msg) > 0) {
+         $error .= "Problem saving item to database: " . $error_msg;
+        }
+        else {
+          $conf .= "The being was successfully added/edited. ";
+        }
+      }
+      
     }
     
     else {  // Not an XML request

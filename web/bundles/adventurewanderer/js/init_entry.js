@@ -78,11 +78,11 @@ function getLocnAsXML() {
 
 
 function getItemAsXML() {
-  var util_options = new Array("breakable", "climbable", "lightable", "openable", 
+  var utilOptions = new Array("breakable", "climbable", "lightable", "openable", 
   "takeable");
-  var state_options = new Array("open", "useable", "lit");
-  var utilities = getCheckBoxes(util_options, "itemUtility");
-  var states = getCheckBoxes(state_options, "itemState");
+  var stateOptions = new Array("open", "useable", "lit");
+  var utilities = getCheckBoxes(utilOptions, "itemUtility");
+  var states = getCheckBoxes(stateOptions, "itemState");
   var description =  $("#itemDescription").val().replace(/\r?\n/g, '<br />');
   var fData = new Array();
   fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
@@ -130,6 +130,57 @@ function getWeaponAsXML() {
   fData.push("<location_storey>" + $("#weaponStoreyVal").val() + "</location_storey>");
   fData.push("<image>" + $("#weaponImage").val() + "</image>");
   fData.push("</weapon></request>");
+  return fData.join("");
+}
+
+
+function getBeingAsXML() {
+  var description =  $("#beingDescription").val().replace(/\r?\n/g, '<br />');
+  var fData = new Array();
+  
+  var envOptions = new Array("p", "b", "r", "m", "f", "p", "c");
+  var resistances = getCheckBoxes(resistantOptions, "beingResistant");
+  var vulnerabilities = getCheckBoxes(envOptions, "beingVulnerabilities");
+  
+  fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+  fData.push("<request>");
+  fData.push("<op>SaveNewBeing</op>");
+  fData.push("<being>");
+  
+  fData.push("<name>" + $("#beingName").val() + "</name>");  
+  fData.push("<race>" + $("#beingRace").val() + "</race>");
+  fData.push("<hp><" + $("#beingHP").val() + "</hp>");
+  fData.push("<level>" + $("#beingLevel").val() + "</level>");
+  fData.push("<mp>" + $("#beingMP").val() + "</mp>");
+  fData.push("<defence>" + $("#beingDefence").val() + "</defence>");
+  fData.push("<image>" + $("#beingImage").val() + "</image>");
+  fData.push("<str>" + $("#beingStr").val() + "</str>");
+  fData.push("<dex>" + $("#beingDex").val() + "</dex>");
+  fData.push("<con>" + $("#beingCon").val() + "</con>");
+  fData.push("<wis>" + $("#beingWis").val() + "</wis>");
+  fData.push("<itg>" + $("#beingItg").val() + "</itg>");
+  fData.push("<cha>" + $("#beingCha").val() + "</cha>");
+  
+  fData.push("<resistant>" + resistances + "</resistant>");
+  fData.push("<vulnerable>" + resistances + "</vulnerable>");
+  
+  fData.push("<mood>" + $("#beingMood").val() + "</mood>");
+  fData.push("<location_y>" + $("#being").val() + "</locationy>");
+  fData.push("<location_x>" + $("#being").val() + "</location_x>");
+  fData.push("<location_storey>" + $("#being").val() + "</location_storey>");
+  fData.push("<weapon_id1>" + $("#being").val() + "</weapon_id1>");
+  fData.push("<item1_id>" + $("#being").val() + "</item1_id>");
+  fData.push("<item2_id>" + $("#being").val() + "</item2_id>");
+  fData.push("<gp>" + $("#being").val() + "</gp>");
+  
+  fData.push("<weapon_id2>" + $("#being").val() + "</weapon_id2>");
+  fData.push("<weapon_id3>" + $("#being").val() + "</weapon_id3>");
+  fData.push("<location_y>" + $("#being").val() + "</location_y>");
+  fData.push("<location_x>" + $("#being").val() + "</location_x>");
+  fData.push("<location_storey>" + $("#being").val() + "</location_storey>");
+  
+  
+  fData.push("</being></request>");
   return fData.join("");
 }
 
