@@ -211,13 +211,27 @@ $weapon["available"]);
 
 
 function parse_xml_being_get_2d_array($obj) {
-  $resistances = array();
-  $vulnerabilities = array();
-  foreach ($obj->resistances->resistance as $resistance) {
-    $resistances[] = strval($resistance);
+  $resistances = array("", "");
+  $vulnerabilities = array("", "");
+  if (sizeof($obj->resistant->children()) > 0) {
+    $i = 0;
+    //foreach ($obj->resistances->resistance as $resistance) {
+    foreach ($obj->resistant->children() as $resistance) {
+      if ($resistance == "1") {
+        $resistances[$i] = $resistance->getName();
+        $i++;
+      }
+    }
   }
-  foreach ($obj->vulnerabilities->vulnerability as $vulnerability) {
-    $vulnerabilities[] = strval($vulnerability);
+  if (sizeof($obj->vulnerable->children()) > 0) {
+    $i = 0;
+    //foreach ($obj->vulnerabilities->vulnerability as $vulnerability) {
+    foreach ($obj->vulnerable->children() as $vulnerability) {
+      if ($vulnerability == "1") {  
+        $vulnerabilities[$i] = $vulnerability->getName();
+        $i++;
+      }
+    }
   }
   $being = array("name"=> strval($obj->name),
     "race"=> ($obj->race),
@@ -240,8 +254,10 @@ function parse_xml_being_get_2d_array($obj) {
     "item1_id"=> intval($obj->item1_id),
     "item2_id"=> intval($obj->item2_id),
     "gp"=> intval($obj->gp),
-    "resistances"=> $resistances,
-    "vulnerability"=> $vulnerabilities,
+    "resistance1"=> $resistances[0],
+    "resistance2"=> $resistances[1],
+    "vulnerability1"=> $vulnerabilities[0],
+    "vulnerability2"=> $vulnerabilities[1],
     "weapon_id2"=> intval($obj->weapon_id2),
     "weapon_id3"=> intval($obj->weapon_id3),
     "available"=> intval($obj->available)
@@ -273,15 +289,19 @@ weapon_id1,
 item1_id,
 item2_id,
 gp,
-resistant,
-vulnerable,
+resistance1,
+resistance2,
+vulnerability1,
+vulnerability2,
 weapon_id2,
-weapon_id3) ) values (
-'%s', '%s', '%s', %d, %d, %d, %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s',
-'%s', d, d, d, d, d,d, d, '%s', '%s', %d, %d)", 
+weapon_id3) values (
+'%s', '%s', %d, %d, %d, %d, '%s',
+'%s', '%s', '%s', '%s', '%s', '%s', 
+'%s',%d, %d, %d, 
+%d, %d, %d, %d, 
+'%s', '%s', '%s', '%s', %d, %d);", 
 $being["name"],
 $being["race"],
-$being["race_plural"],
 $being["hp"],
 $being["level"],
 $being["mp"],
@@ -301,8 +321,10 @@ $being["weapon_id1"],
 $being["item1_id"],
 $being["item2_id"],
 $being["gp"],
-$being["resistant"],
-$being["vulnerable"],
+$being["resistance1"],
+$being["resistance2"],
+$being["vulnerability1"],
+$being["vulnerability2"],
 $being["weapon_id2"],
 $being["weapon_id3"]);
   $res = $db_conn->query($sql);  
@@ -312,7 +334,7 @@ $being["weapon_id3"]);
 
 function get_available_items_as_xml($db_conn) {
   // DB query
-  $sql = "select id, name from item where available = 1;";
+  $sql = "select id, name from item where available = 1 order by name;";
   $res = $db_conn->query($sql);
   
   // Store records in XML object
@@ -333,6 +355,32 @@ function get_available_items_as_xml($db_conn) {
   }
   return $resp_obj->asXML();
 }
+
+
+function get_available_weapons_as_xml($db_conn) {
+  // DB query
+  $sql = "select id, name from weapon where available = 1 order by name;";
+  $res = $db_conn->query($sql);
+  
+  // Store records in XML object
+  $resp_obj = new SimpleXMLElement("<response />");
+  $items_elem = $resp_obj->addChild("weapons");
+  if (strlen($db_conn->get_error()) > 0) {
+    $elem = $resp_obj->AddChild("error");
+    $elem->{0} = $db_conn->get_error();
+  }
+  else {
+    foreach ($res as $rec) {
+      $item_elem = $items_elem->addChild("weapon");
+      $elem = $item_elem->addChild("id");
+      $elem->{0} = $rec["id"];
+      $elem = $item_elem->addChild("name");
+      $elem->{0} = $rec["name"];
+    }
+  }
+  return $resp_obj->asXML();
+}
+  
 
 
 /**
