@@ -79,7 +79,7 @@ class InitController extends Controller {
         }
       }
       
-       elseif ($xml->op == "SaveNewBeing") {
+      elseif ($xml->op == "SaveNewBeing") {
         $weapon = parse_xml_being_get_2d_array($xml->being);
         $error_msg = insert_being($db_conn, $being);
         if (strlen($error_msg) > 0) {
@@ -90,14 +90,22 @@ class InitController extends Controller {
         }
       }
       
+      elseif ($xml->op == "getAvailableItems") {
+        $xml_resp = get_available_items_as_xml($db_conn);        
+      }
+      
     }
     
     else {  // Not an XML request
       $error .= "Not a valid XML request";
     }
     
-  
-    $xml_resp = get_resp_strg($error, $conf);    
+    if (in_array($xml->op, array("SaveNewLocation", "SaveNewItem", "SaveNewWeapon", "SaveNewBeing"))) {
+      $xml_resp = get_insert_resp_strg($error, $conf);
+    }
+    
+     
+    
     $db_conn->close();
     return new Response($xml_resp, 
       Response::HTTP_OK,

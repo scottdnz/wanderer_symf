@@ -186,9 +186,6 @@ vulnerability1 char(1),
 vulnerability2 char(1),
 weapon_id2 int,
 weapon_id3 int,
-location_y smallint not null,
-location_x smallint not null,
-location_storey smallint,
 primary key (id)
 );";
   $db_conn->query($sql);  
@@ -215,6 +212,7 @@ util_takeable tinyint,
 state_open tinyint,
 state_useable tinyint,
 state_lit tinyint,   
+available tinyint,
 primary key (id)
 );";
   $db_conn->query($sql);  
@@ -250,6 +248,7 @@ location_y smallint,
 location_x smallint,
 location_storey smallint,
 image varchar(35) not null,
+available tinyint,
 primary key (id)
 );";
   $db_conn->query($sql);  
@@ -273,6 +272,7 @@ reqd_class char(1),
 location_y smallint,
 location_x smallint,
 location_storey smallint,
+available tinyint,
 primary key (id)
 );";
   $db_conn->query($sql);  
@@ -297,6 +297,7 @@ location_y smallint,
 location_x smallint,
 location_storey smallint,
 state varchar(50),
+available tinyint,
 primary key (id)
 );";
   $db_conn->query($sql);  

@@ -231,4 +231,38 @@ $loc["visited"]);
     var_dump($being);  
   }
   
+  
+  function test_get_available_items() {
+    $sql = "select id, name from item where available = 1;";
+    //$res = $db_conn->query($sql);
+    $res = self::$conn->query($sql);  
+    if (strlen(self::$conn->get_error()) > 0) {
+      echo self::$conn->get_error();
+    }
+    
+    /*
+    $xml_obj = new SimpleXMLElement("<items />");  
+    //$fields = array("id", "name");
+    foreach ($res as $rec) {
+      $loc_elem = $xml_obj->addChild("item");
+      $elem = $loc_elem->addChild("id");
+      $elem->{0} = $rec["id"];
+      $elem = $loc_elem->addChild("name");
+      $elem->{0} = $rec["name"];
+    }
+    echo $xml_obj->asXML();
+    */
+    $resp_obj = new SimpleXMLElement("<response />");
+    $items_elem = $resp_obj->addChild("items");
+    foreach ($res as $rec) {
+      $item_elem = $items_elem->addChild("item");
+      $elem = $item_elem->addChild("id");
+      $elem->{0} = $rec["id"];
+      $elem = $item_elem->addChild("name");
+      $elem->{0} = $rec["name"];
+    }
+    echo $resp_obj->asXML();
+  }
+  
+  
 }

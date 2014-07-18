@@ -20,5 +20,6 @@
     <location_y>1</location_y>
     <location_x>2</location_x>
     <location_storey>1</location_storey>
+    <available>1</available>
   </weapon>
 </request>

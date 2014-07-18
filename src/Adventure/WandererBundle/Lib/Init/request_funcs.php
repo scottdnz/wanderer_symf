@@ -86,7 +86,8 @@ function parse_xml_item_get_2d_array($obj) {
   "util_takeable"=> intval($utilities->takeable),
   "state_open"=> intval($states->open),
   "state_useable"=> intval($states->useable),
-  "state_lit"=> intval($states->lit)
+  "state_lit"=> intval($states->lit),
+  "available"=> intval($obj->available)
   );
   return $item;
 }
@@ -108,8 +109,10 @@ util_openable,
 util_takeable,
 state_open,
 state_useable,
-state_lit) values (
-'%s', '%s', '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",  
+state_lit,
+available
+) values (
+'%s', '%s', '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",  
 $item["name"],
 $item["description"],
 $item["image"],
@@ -124,7 +127,9 @@ $item["util_openable"],
 $item["util_takeable"],
 $item["state_open"],
 $item["state_useable"],
-$item["state_lit"]);
+$item["state_lit"],
+$item["available"]
+);
   $res = $db_conn->query($sql);  
   return $db_conn->get_error();
 }
@@ -149,7 +154,8 @@ function parse_xml_weapon_get_2d_array($obj) {
     "reqd_level"=> intval($obj->reqd_level),
     "equipped"=> intval($obj->equipped),
     "condtn"=> intval($obj->condtn),
-    "deteriorates"=> intval($obj->deteriorates)
+    "deteriorates"=> intval($obj->deteriorates),
+    "available"=> intval($obj->available)
     );
   return $weapon;
 }
@@ -175,8 +181,10 @@ reqd_level,
 reqd_class,
 equipped,
 condtn,
-deteriorates) values (
-'%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, %d)",
+deteriorates,
+available
+) values (
+'%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, %d, %d)",
 $weapon["name"],
 $weapon["description"],
 $weapon["image"],
@@ -195,9 +203,50 @@ $weapon["reqd_level"],
 $weapon["reqd_class"],
 $weapon["equipped"],
 $weapon["condtn"],
-$weapon["deteriorates"]);
+$weapon["deteriorates"],
+$weapon["available"]);
   $res = $db_conn->query($sql);  
   return $db_conn->get_error();
+}
+
+
+function parse_xml_being_get_2d_array($obj) {
+  $resistances = array();
+  $vulnerabilities = array();
+  foreach ($obj->resistances->resistance as $resistance) {
+    $resistances[] = strval($resistance);
+  }
+  foreach ($obj->vulnerabilities->vulnerability as $vulnerability) {
+    $vulnerabilities[] = strval($vulnerability);
+  }
+  $being = array("name"=> strval($obj->name),
+    "race"=> ($obj->race),
+    "hp"=> intval($obj->hp),
+    "level"=> intval($obj->level),
+    "mp"=> intval($obj->mp),
+    "defence"=> intval($obj->defence),
+    "image"=> strval($obj->image),
+    "str"=> intval($obj->str),
+    "dex"=> intval($obj->dex),
+    "con"=> intval($obj->con),
+    "wis"=> intval($obj->wis),
+    "itg"=> intval($obj->itg),
+    "cha"=> intval($obj->cha),
+    "mood"=> intval($obj->mood),
+    "location_y"=> intval($obj->location_y),
+    "location_x"=> intval($obj->location_x),
+    "location_storey"=> intval($obj->location_storey),
+    "weapon_id1"=> intval($obj->weapon_id1),
+    "item1_id"=> intval($obj->item1_id),
+    "item2_id"=> intval($obj->item2_id),
+    "gp"=> intval($obj->gp),
+    "resistances"=> $resistances,
+    "vulnerability"=> $vulnerabilities,
+    "weapon_id2"=> intval($obj->weapon_id2),
+    "weapon_id3"=> intval($obj->weapon_id3),
+    "available"=> intval($obj->available)
+    );
+  return $being;
 }
 
 
@@ -261,42 +310,28 @@ $being["weapon_id3"]);
 }
 
 
-function parse_xml_being_get_2d_array($obj) {
-  $resistances = array();
-  $vulnerabilities = array();
-  foreach ($obj->resistances->resistance as $resistance) {
-    $resistances[] = strval($resistance);
+function get_available_items_as_xml($db_conn) {
+  // DB query
+  $sql = "select id, name from item where available = 1;";
+  $res = $db_conn->query($sql);
+  
+  // Store records in XML object
+  $resp_obj = new SimpleXMLElement("<response />");
+  $items_elem = $resp_obj->addChild("items");
+  if (strlen($db_conn->get_error()) > 0) {
+    $elem = $resp_obj->AddChild("error");
+    $elem->{0} = $db_conn->get_error();
   }
-  foreach ($obj->vulnerabilities->vulnerability as $vulnerability) {
-    $vulnerabilities[] = strval($vulnerability);
+  else {
+    foreach ($res as $rec) {
+      $item_elem = $items_elem->addChild("item");
+      $elem = $item_elem->addChild("id");
+      $elem->{0} = $rec["id"];
+      $elem = $item_elem->addChild("name");
+      $elem->{0} = $rec["name"];
+    }
   }
-  $being = array("name"=> strval($obj->name),
-    "race"=> ($obj->race),
-    "hp"=> intval($obj->hp),
-    "level"=> intval($obj->level),
-    "mp"=> intval($obj->mp),
-    "defence"=> intval($obj->defence),
-    "image"=> strval($obj->image),
-    "str"=> intval($obj->str),
-    "dex"=> intval($obj->dex),
-    "con"=> intval($obj->con),
-    "wis"=> intval($obj->wis),
-    "itg"=> intval($obj->itg),
-    "cha"=> intval($obj->cha),
-    "mood"=> intval($obj->mood),
-    "location_y"=> intval($obj->location_y),
-    "location_x"=> intval($obj->location_x),
-    "location_storey"=> intval($obj->location_storey),
-    "weapon_id1"=> intval($obj->weapon_id1),
-    "item1_id"=> intval($obj->item1_id),
-    "item2_id"=> intval($obj->item2_id),
-    "gp"=> intval($obj->gp),
-    "resistances"=> $resistances,
-    "vulnerability"=> $vulnerabilities,
-    "weapon_id2"=> intval($obj->weapon_id2),
-    "weapon_id3"=> intval($obj->weapon_id3)
-    );
-  return $being;
+  return $resp_obj->asXML();
 }
 
 
@@ -307,14 +342,14 @@ function parse_xml_being_get_2d_array($obj) {
  * @param string $conf
  * @return string
  */
-function get_resp_strg($error, $conf) {
-  $respObj = new SimpleXMLElement("<response />");
-  $error_elem = $respObj->addChild("error");
+function get_insert_resp_strg($error, $conf) {
+  $resp_obj = new SimpleXMLElement("<response />");
+  $error_elem = $resp_obj->addChild("error");
   $error_elem->{0} = $error;
-  $conf_elem = $respObj->addChild("conf");
+  $conf_elem = $resp_obj->addChild("conf");
   $conf_elem->{0} = $conf;
   //Testing. Save XML object to file.
   //$respObj->asXML('xml_resp.xml');
-  return $respObj->asXML();
+  return $resp_obj->asXML();
 }
 

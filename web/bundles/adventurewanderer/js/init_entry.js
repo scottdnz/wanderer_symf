@@ -98,6 +98,7 @@ function getItemAsXML() {
   fData.push("<location_x>" + $("#itemXVal").val() + "</location_x>");
   fData.push("<location_storey>" + $("#itemStoreyVal").val() + "</location_storey>");
   fData.push("<uses_remaining>" + $("#itemUsesRemaining").val() + "</uses_remaining> ");
+  fData.push("<available>1</available>");
   fData.push("</item></request>");
   return fData.join("");
 }
@@ -129,6 +130,7 @@ function getWeaponAsXML() {
   fData.push("<location_x>" + $("#weaponXVal").val() + "</location_x>");
   fData.push("<location_storey>" + $("#weaponStoreyVal").val() + "</location_storey>");
   fData.push("<image>" + $("#weaponImage").val() + "</image>");
+  fData.push("<available>1</available>");
   fData.push("</weapon></request>");
   return fData.join("");
 }
@@ -185,6 +187,43 @@ function getBeingAsXML() {
 }
 
 
+function fillAvailableItems() {
+  var fData = new Array();  
+  var url = $("#frmItems").data("route");      
+  fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+  fData.push("<request>");
+  fData.push("<op>getAvailableItems</op>");
+  fData.push("</request>"); 
+
+  $.post(url, 
+    fData.join(""), 
+    function(data) {
+      //console.log(data);
+      $xml = $(data);
+      $items = $xml.find("items");
+      if ($items.length > 0) {
+        $items.find("item").each(function() {
+          var id = $(this).find('id').text();
+          var name = $(this).find('name').text();
+          
+          //Up to here! Need to put this in Beings select options
+          console.log("id: " + id + ", name: " + name);
+        });      
+      }
+      else {
+      
+        error = $xml.find("error").text();
+        respMsg = "<p>Error(s): " + error;
+        $("#respMsgArea").css("color", "red");
+        $("#respMsgArea").html(respMsg + "</p>");
+      }
+    }, // End of post success function
+    "xml"
+  ); // End of post call
+}
+  
+
+
 function postAdd(url, fData) {
   //url, data, success, datatype
   $.post(url, 
@@ -216,6 +255,9 @@ $(document).ready(function() {
   $("form").hide();
   $("input[name='weaponEquipped'][value='0']").prop("checked", true);
   $("input[name='weaponDeteriorates'][value='1']").prop("checked", true);  
+  fillAvailableItems();
+  
+  
 
   //fillWithTestData();
   $("form").hide();
@@ -277,6 +319,13 @@ $(document).ready(function() {
   $("#weaponSubmit").click(function() {
     var fData = getWeaponAsXML();
     var url = $("#frmWeapons").data("route");      
+    postAdd(url, fData);
+  });
+  
+  
+  $("#beingSubmit").click(function() {
+    var fData = getBeingAsXML();
+    var url = $("#frmBeings").data("route");      
     postAdd(url, fData);
   });
   
