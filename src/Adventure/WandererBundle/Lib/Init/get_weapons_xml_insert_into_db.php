@@ -33,7 +33,7 @@ if (strlen($db_conn->get_error()) > 0) {
 }
 
 
-echo "Enter the locations XML source file name:\n";
+echo "Enter the items XML source file name:\n";
 $f_name = trim(fgets(STDIN));
 if (! file_exists($f_name)) {
   echo "The file " . $f_name . " cannot be found. \n";
@@ -46,25 +46,58 @@ $obj = simplexml_load_string($content);
 //$obj = $xml->locations;
 $rec_strgs = array();
 
-foreach ($obj->location as $loc) {
-  $exits = $loc->exits;
-  $rec_strgs[] = sprintf("('%s', '%s', '%s', '%s', %d, %d, %d, %d, %d, %d, %d, 
-    %d, %d, %d, %d, %d, %d, %d)", 
-    $loc->short_lbl,
-    $loc->area, 
-    $loc->description,
-    $loc->image, 
-    $loc->x_val,
-    $loc->y_val,
-    $loc->storey_val,
-    $loc->visited,
-    $exits->n, $exits->ne, $exits->e, $exits->se, $exits->s, $exits->sw, 
-    $exits->w, $exits->nw, $exits->up, $exits->down);
+foreach ($obj->weapon as $weapon) {
+ 
+  //echo $item->name . "\n";
+  
+  $rec_strgs[] = sprintf("('%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, %d, %d)", 
+  $weapon->name,
+  $weapon->description,
+  $weapon->image,
+  $weapon->location_y,
+  $weapon->location_x,
+  $weapon->location_storey,
+  $weapon->uses_remaining,
+  $weapon->dmg1_type,
+  $weapon->dmg1_min,
+  $weapon->dmg1_max,
+  $weapon->dmg2_type,
+  $weapon->dmg2_min,
+  $weapon->dmg2_max,
+  $weapon->bonus_status_type,
+  $weapon->bonus_status_val,
+  $weapon->reqd_level,
+  $weapon->reqd_class,
+  $weapon->equipped,
+  $weapon->condtn,
+  $weapon->deteriorates,
+  $weapon->available);
 }
-$sql = "insert into location (short_lbl, area, description, image, x_val, y_val, ";
-$sql .= "storey_val, visited, exit_n, exit_ne, exit_e, exit_se, exit_s, exit_sw, ";
-$sql .= "exit_w, exit_nw, exit_up, exit_down) values %s;";
+    
+$sql = "insert into weapon (
+name,
+description,
+image,
+location_y,
+location_x,
+location_storey,
+dmg1_type,
+dmg1_min,
+dmg1_max,
+dmg2_type,
+dmg2_min,
+dmg2_max,
+bonus_status_type,
+bonus_status_val,
+reqd_level,
+reqd_class,
+equipped,
+condtn,
+deteriorates,
+available
+) values %s";   
 $sql = sprintf($sql, join($rec_strgs, ","));
+ 
 
 //echo $sql;
 
@@ -75,5 +108,5 @@ if (strlen($db_conn->get_error()) > 0) {
   exit(0);
 }
 else {
-  echo "Records inserted into location. \n";
+  echo "Records inserted into weapon. \n";
 }

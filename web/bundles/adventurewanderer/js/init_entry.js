@@ -330,6 +330,15 @@ $(document).ready(function() {
   });
   
   
+  $("#weaponReset").click(function() {
+    clearForm("#frmWeapons");
+    $("#weaponStoreyVal").val("1");
+    $("input[name='weaponDeteriorates'][value='1']").prop("checked",true);
+    $("input[name='weaponEquipped'][value='0']").prop("checked",true);
+    
+  });
+  
+  
   $(".cBox").hover(function() {
     $(this).css("cursor", "pointer")
   }, function() {
