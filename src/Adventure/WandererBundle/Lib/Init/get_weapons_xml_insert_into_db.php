@@ -50,14 +50,17 @@ foreach ($obj->weapon as $weapon) {
  
   //echo $item->name . "\n";
   
-  $rec_strgs[] = sprintf("('%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, '%s', %d, %d, %d, %d)", 
+  $rec_strgs[] = sprintf("('%s', '%s', '%s',
+       %d, %d, %d, 
+      '%s', %d, %d, '%s', %d, %d, 
+      '%s', %d, 
+      %d, '%s', %d, %d, %d, %d)", 
   $weapon->name,
   $weapon->description,
   $weapon->image,
   $weapon->location_y,
   $weapon->location_x,
   $weapon->location_storey,
-  $weapon->uses_remaining,
   $weapon->dmg1_type,
   $weapon->dmg1_min,
   $weapon->dmg1_max,
