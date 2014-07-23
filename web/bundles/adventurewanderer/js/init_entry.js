@@ -137,11 +137,11 @@ function getWeaponAsXML() {
 
 
 function getBeingAsXML() {
-  var description =  $("#beingDescription").val().replace(/\r?\n/g, '<br />');
+  //var description =  $("#beingDescription").val().replace(/\r?\n/g, '<br />');
   var fData = new Array();
   
   var envOptions = new Array("p", "b", "r", "m", "f", "p", "c");
-  var resistances = getCheckBoxes(resistantOptions, "beingResistant");
+  var resistances = getCheckBoxes(envOptions, "beingResistant");
   var vulnerabilities = getCheckBoxes(envOptions, "beingVulnerabilities");
   
   fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
@@ -151,7 +151,7 @@ function getBeingAsXML() {
   
   fData.push("<name>" + $("#beingName").val() + "</name>");  
   fData.push("<race>" + $("#beingRace").val() + "</race>");
-  fData.push("<hp><" + $("#beingHP").val() + "</hp>");
+  fData.push("<hp>" + $("#beingHP").val() + "</hp>");
   fData.push("<level>" + $("#beingLevel").val() + "</level>");
   fData.push("<mp>" + $("#beingMP").val() + "</mp>");
   fData.push("<defence>" + $("#beingDefence").val() + "</defence>");
@@ -164,24 +164,18 @@ function getBeingAsXML() {
   fData.push("<cha>" + $("#beingCha").val() + "</cha>");
   
   fData.push("<resistant>" + resistances + "</resistant>");
-  fData.push("<vulnerable>" + resistances + "</vulnerable>");
+  fData.push("<vulnerable>" + vulnerabilities + "</vulnerable>");
   
   fData.push("<mood>" + $("#beingMood").val() + "</mood>");
-  fData.push("<location_y>" + $("#being").val() + "</locationy>");
-  fData.push("<location_x>" + $("#being").val() + "</location_x>");
-  fData.push("<location_storey>" + $("#being").val() + "</location_storey>");
-  fData.push("<weapon_id1>" + $("#being").val() + "</weapon_id1>");
-  fData.push("<item1_id>" + $("#being").val() + "</item1_id>");
-  fData.push("<item2_id>" + $("#being").val() + "</item2_id>");
-  fData.push("<gp>" + $("#being").val() + "</gp>");
-  
-  fData.push("<weapon_id2>" + $("#being").val() + "</weapon_id2>");
-  fData.push("<weapon_id3>" + $("#being").val() + "</weapon_id3>");
-  fData.push("<location_y>" + $("#being").val() + "</location_y>");
-  fData.push("<location_x>" + $("#being").val() + "</location_x>");
-  fData.push("<location_storey>" + $("#being").val() + "</location_storey>");
-  
-  
+  fData.push("<location_y>" + $("#beingLocnYVal").val() + "</location_y>");
+  fData.push("<location_x>" + $("#beingLocnXVal").val() + "</location_x>");
+  fData.push("<location_storey>" + $("#beingStoreyVal").val() + "</location_storey>");
+  fData.push("<weapon_id1>" + $("#beingWeaponId1").val() + "</weapon_id1>");
+  fData.push("<item1_id>" + $("#beingItem1").val() + "</item1_id>");
+  fData.push("<item2_id>" + $("#beingItem2").val() + "</item2_id>");
+  fData.push("<gp>" + $("#beingGP").val() + "</gp>");
+  fData.push("<weapon_id2>" + $("#beingWeaponId2").val() + "</weapon_id2>");
+  fData.push("<weapon_id3>" + $("#beingWeaponId3").val() + "</weapon_id3>"); 
   fData.push("</being></request>");
   return fData.join("");
 }
@@ -201,14 +195,61 @@ function fillAvailableItems() {
       //console.log(data);
       $xml = $(data);
       $items = $xml.find("items");
+      console.log($items.length);
       if ($items.length > 0) {
+        var itemOptions = new Array();
         $items.find("item").each(function() {
           var id = $(this).find('id').text();
           var name = $(this).find('name').text();
           
           //Up to here! Need to put this in Beings select options
-          console.log("id: " + id + ", name: " + name);
-        });      
+          //console.log("id: " + id + ", name: " + name);
+          itemOptions.push("<option value='" + id + "'>" + name + "</option>");
+        });
+        $("#beingItem1").append(itemOptions.join("\n"));
+        $("#beingItem2").append(itemOptions.join("\n"));
+      }
+      else {
+      
+        error = $xml.find("error").text();
+        respMsg = "<p>Error(s): " + error;
+        $("#respMsgArea").css("color", "red");
+        $("#respMsgArea").html(respMsg + "</p>");
+      }
+    }, // End of post success function
+    "xml"
+  ); // End of post call
+}
+
+
+function fillAvailableWeapons() {
+  var fData = new Array();  
+  var url = $("#frmItems").data("route");      
+  fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+  fData.push("<request>");
+  fData.push("<op>getAvailableWeapons</op>");
+  fData.push("</request>"); 
+
+  $.post(url, 
+    fData.join(""), 
+    function(data) {
+      //console.log(data);
+      $xml = $(data);
+      $items = $xml.find("weapons");
+      console.log($items.length);
+      if ($items.length > 0) {
+        var itemOptions = new Array();
+        $items.find("weapon").each(function() {
+          var id = $(this).find('id').text();
+          var name = $(this).find('name').text();
+          
+          //Up to here! Need to put this in Beings select options
+          //console.log("id: " + id + ", name: " + name);
+          itemOptions.push("<option value='" + id + "'>" + name + "</option>");
+        });
+        $("#beingWeaponId1").append(itemOptions.join("\n"));
+        $("#beingWeaponId2").append(itemOptions.join("\n"));
+        $("#beingWeaponId3").append(itemOptions.join("\n"));
       }
       else {
       
@@ -256,7 +297,7 @@ $(document).ready(function() {
   $("input[name='weaponEquipped'][value='0']").prop("checked", true);
   $("input[name='weaponDeteriorates'][value='1']").prop("checked", true);  
   fillAvailableItems();
-  
+  fillAvailableWeapons();
   
 
   //fillWithTestData();
@@ -281,6 +322,20 @@ $(document).ready(function() {
   
   $("#itemReset").click(function() {
     clearForm("#frmItems");
+  });
+  
+  
+  $("#beingReset").click(function() {
+    clearForm("#frmBeings");
+  });
+  
+  
+  $("#weaponReset").click(function() {
+    clearForm("#frmWeapons");
+    $("#weaponStoreyVal").val("1");
+    $("input[name='weaponDeteriorates'][value='1']").prop("checked",true);
+    $("input[name='weaponEquipped'][value='0']").prop("checked",true);
+    
   });
   
   

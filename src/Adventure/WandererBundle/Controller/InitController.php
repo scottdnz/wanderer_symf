@@ -80,7 +80,7 @@ class InitController extends Controller {
       }
       
       elseif ($xml->op == "SaveNewBeing") {
-        $weapon = parse_xml_being_get_2d_array($xml->being);
+        $being = parse_xml_being_get_2d_array($xml->being);
         $error_msg = insert_being($db_conn, $being);
         if (strlen($error_msg) > 0) {
          $error .= "Problem saving item to database: " . $error_msg;
@@ -92,6 +92,10 @@ class InitController extends Controller {
       
       elseif ($xml->op == "getAvailableItems") {
         $xml_resp = get_available_items_as_xml($db_conn);        
+      }
+      
+      elseif ($xml->op == "getAvailableWeapons") {
+        $xml_resp = get_available_weapons_as_xml($db_conn);
       }
       
     }
