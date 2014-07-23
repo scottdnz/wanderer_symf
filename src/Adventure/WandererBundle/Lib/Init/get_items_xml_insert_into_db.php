@@ -33,7 +33,7 @@ if (strlen($db_conn->get_error()) > 0) {
 }
 
 
-echo "Enter the weapons XML source file name:\n";
+echo "Enter the items XML source file name:\n";
 $f_name = trim(fgets(STDIN));
 if (! file_exists($f_name)) {
   echo "The file " . $f_name . " cannot be found. \n";
@@ -43,60 +43,58 @@ if (! file_exists($f_name)) {
 
 $content = file_get_contents($f_name);
 $obj = simplexml_load_string($content);
-//$obj = $xml->locations;
 $rec_strgs = array();
 
-foreach ($obj->weapon as $weapon) {
- 
+foreach ($obj->item as $item) {
   //echo $item->name . "\n";
+  $utilities = $item->utilities;
+  $states = $item->states;
   
   $rec_strgs[] = sprintf("('%s', '%s', '%s',
-       %d, %d, %d, 
-      '%s', %d, %d, '%s', %d, %d, 
-      '%s', %d, 
-      %d, '%s', %d, %d, %d, %d)", 
-  $weapon->name,
-  $weapon->description,
-  $weapon->image,
-  $weapon->location_y,
-  $weapon->location_x,
-  $weapon->location_storey,
-  $weapon->dmg1_type,
-  $weapon->dmg1_min,
-  $weapon->dmg1_max,
-  $weapon->dmg2_type,
-  $weapon->dmg2_min,
-  $weapon->dmg2_max,
-  $weapon->bonus_status_type,
-  $weapon->bonus_status_val,
-  $weapon->reqd_level,
-  $weapon->reqd_class,
-  $weapon->equipped,
-  $weapon->condtn,
-  $weapon->deteriorates,
-  $weapon->available);
+  %d, %d, %d,
+  %d, 
+  %d, %d, %d, %d, %d, 
+  %d, %d, %d, 
+  %d
+  )", 
+  $item->name,
+  $item->description,
+  $item->image,
+
+  $item->location_y,
+  $item->location_x,
+  $item->location_storey,
+
+  $item->uses_remaining,
+
+  $utilities->breakable,
+  $utilities->climbable,
+  $utilities->lightable,
+  $utilities->openable,
+  $utilities->takeable,
+  $states->open,
+  $states->useable,
+  $states->lit,
+  $item->available
+  );
 }
     
-$sql = "insert into weapon (
+$sql = "insert into item (
 name,
 description,
 image,
 location_y,
 location_x,
 location_storey,
-dmg1_type,
-dmg1_min,
-dmg1_max,
-dmg2_type,
-dmg2_min,
-dmg2_max,
-bonus_status_type,
-bonus_status_val,
-reqd_level,
-reqd_class,
-equipped,
-condtn,
-deteriorates,
+uses_remaining,
+util_breakable,
+util_climbable,
+util_lightable,
+util_openable,
+util_takeable,
+state_open,
+state_useable,
+state_lit,
 available
 ) values %s";   
 $sql = sprintf($sql, join($rec_strgs, ","));
@@ -111,5 +109,5 @@ if (strlen($db_conn->get_error()) > 0) {
   exit(0);
 }
 else {
-  echo "Records inserted into weapon. \n";
+  echo "Records inserted into item. \n";
 }
