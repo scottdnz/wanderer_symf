@@ -33,8 +33,13 @@ if (strlen($db_conn->get_error()) > 0) {
 }
 
 
-echo "Enter the locations XML source file name:\n";
-$f_name = trim(fgets(STDIN));
+/*echo "Enter the locations XML source file name:\n";
+$f_name = trim(fgets(STDIN));*/
+if (sizeof($argv) < 2) {
+  echo "Please enter a filename argument. \n";
+  exit(0);
+}
+$f_name = trim($argv[1]);
 if (! file_exists($f_name)) {
   echo "The file " . $f_name . " cannot be found. \n";
   exit(0);

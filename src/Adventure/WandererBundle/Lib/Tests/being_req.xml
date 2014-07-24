@@ -23,13 +23,24 @@
     <item1_id>1</item1_id>
     <item2_id></item2_id>
     <gp>5</gp>
-    <resistances>
-      <resistance>c</resistance>
-    </resistances>
-    <vulnerabilities>
-      <vulnerability>f</vulnerability>
-      <vulnerability>m</vulnerability>
-    </vulnerabilities>
+    <resistant>
+			<p>0</p>
+			<b>1</b>
+			<r>0</r>
+			<m>0</m>
+			<f>0</f>
+			<n>0</n>
+			<c>0</c>
+		</resistant>
+		<vulnerable>
+			<p>0</p>
+			<b>1</b>
+			<r>0</r>
+			<m>0</m>
+			<f>0</f>
+			<n>0</n>
+			<c>0</c>
+		</vulnerable>
     <weapon_id2></weapon_id2>
     <weapon_id3></weapon_id3>
     <location_y>1</location_y>

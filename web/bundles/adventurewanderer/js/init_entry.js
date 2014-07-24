@@ -140,9 +140,9 @@ function getBeingAsXML() {
   //var description =  $("#beingDescription").val().replace(/\r?\n/g, '<br />');
   var fData = new Array();
   
-  var envOptions = new Array("p", "b", "r", "m", "f", "p", "c");
+  var envOptions = new Array("p", "b", "r", "m", "f", "n", "c");
   var resistances = getCheckBoxes(envOptions, "beingResistant");
-  var vulnerabilities = getCheckBoxes(envOptions, "beingVulnerabilities");
+  var vulnerabilities = getCheckBoxes(envOptions, "beingVulnerable");
   
   fData.push("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
   fData.push("<request>");
@@ -166,7 +166,7 @@ function getBeingAsXML() {
   fData.push("<resistant>" + resistances + "</resistant>");
   fData.push("<vulnerable>" + vulnerabilities + "</vulnerable>");
   
-  fData.push("<mood>" + $("#beingMood").val() + "</mood>");
+  fData.push("<mood>" + $("input[name='beingMood']").val() + "</mood>");
   fData.push("<location_y>" + $("#beingLocnYVal").val() + "</location_y>");
   fData.push("<location_x>" + $("#beingLocnXVal").val() + "</location_x>");
   fData.push("<location_storey>" + $("#beingStoreyVal").val() + "</location_storey>");
@@ -201,9 +201,6 @@ function fillAvailableItems() {
         $items.find("item").each(function() {
           var id = $(this).find('id').text();
           var name = $(this).find('name').text();
-          
-          //Up to here! Need to put this in Beings select options
-          //console.log("id: " + id + ", name: " + name);
           itemOptions.push("<option value='" + id + "'>" + name + "</option>");
         });
         $("#beingItem1").append(itemOptions.join("\n"));
